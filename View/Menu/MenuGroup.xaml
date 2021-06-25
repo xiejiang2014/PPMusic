@@ -1,0 +1,66 @@
+﻿<UserControl x:Class = "PPMusic.View.Menu.MenuGroup"
+             xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local = "clr-namespace:PPMusic.View"
+             xmlns:viewModel = "clr-namespace:PPMusic.ViewModel"
+             mc:Ignorable = "d"
+             d:DataContext = "{d:DesignInstance menu:MenuGroupViewModel}"
+             d:DesignHeight = "450"
+             d:DesignWidth = "210"
+             Margin="0,0,0,20"
+             Background = "Transparent"
+             xmlns:mah = "clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:menu = "clr-namespace:PPMusic.ViewModel.Menu"
+             xmlns:ppMusic = "clr-namespace:PPMusic" >
+
+
+    <StackPanel>
+        <TextBlock Margin="12,0,0,0" Foreground = "#787878"
+                   Text = "{Binding Title}" />
+
+        <ListView
+            Style = "{StaticResource MenuListViewStyle}"
+            ItemsSource = "{Binding MenuItems}" >
+            <ListView.ItemTemplate>
+                <DataTemplate
+                    DataType = "menu:MenuItemViewModel" >
+                    <RadioButton Padding="8" x:Name = "RadioButton" Margin="0,4"
+                                 Command="{x:Static ppMusic:Commands.MainRegionNavigationCommand}"
+                                 CommandParameter="{Binding NavigationTarget}"
+                                 Style = "{StaticResource MenuRadioButtonStyle}"
+                                 GroupName = "48DE9DC5-1AF2-464F-BD6A-749199529945" >
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition
+                                    Width = "*" />
+                                <ColumnDefinition
+                                    Width = "Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Path
+                                VerticalAlignment = "Center"
+                                Width = "16"
+                                Height = "16"
+                                Margin = "0,0,0,0"
+                                Data = "{Binding IconPath}"
+                                Fill = "{Binding ElementName= RadioButton ,Path=Foreground }"
+                                Stretch = "Uniform" RenderTransformOrigin="0.5,0.5" >
+                            </Path>
+
+                            <TextBlock
+                                VerticalAlignment = "Center"
+                                Grid.Column = "1"
+                                Margin="8,0,0,0"
+                                Text = "{Binding Title}" />
+                        </Grid>
+
+
+                    </RadioButton>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+</UserControl>

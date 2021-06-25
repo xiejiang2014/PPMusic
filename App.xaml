@@ -1,0 +1,32 @@
+﻿<unity:PrismApplication x:Class = "PPMusic.App"
+                        xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local = "clr-namespace:PPMusic"
+                        xmlns:unity = "http://prismlibrary.com/" >
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary
+                    Source = "pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary
+                    Source = "pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary
+                    Source = "pack://application:,,,/MahApps.Metro;component/Styles/Themes/light.teal.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/RadioButtonStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/ListViewStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/ButtonStyles.xaml" />
+				<ResourceDictionary Source="/Styles/SliderStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush
+                x:Key = "MahApps.Brushes.Button.Flat.Background.MouseOver"
+                Color = "#d8d8d8" />
+
+        </ResourceDictionary>
+    </Application.Resources>
+
+</unity:PrismApplication>
