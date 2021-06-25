@@ -1,23 +1,22 @@
-﻿<UserControl x:Class = "PPMusic.View.Menu.Menus"
-             xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local = "clr-namespace:PPMusic.View"
-             xmlns:viewModel = "clr-namespace:PPMusic.ViewModel"
-             xmlns:menu = "clr-namespace:PPMusic.ViewModel.Menu"
-             xmlns:menu1 = "clr-namespace:PPMusic.View.Menu"
-             mc:Ignorable = "d"
-             Width = "210"
-             Padding = "20,0"
-             d:DataContext = "{d:DesignInstance menu:MenusViewModel}"
-             d:DesignWidth = "210" >
+﻿<UserControl
+    x:Class="PPMusic.View.Menu.Menus"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:PPMusic.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:menu="clr-namespace:PPMusic.ViewModel.Menu"
+    xmlns:menu1="clr-namespace:PPMusic.View.Menu"
+    xmlns:viewModel="clr-namespace:PPMusic.ViewModel"
+    Width="210"
+    Padding="20,0"
+    d:DataContext="{d:DesignInstance menu:MenusViewModel}"
+    d:DesignWidth="210"
+    mc:Ignorable="d">
 
-    <ListView Style = "{StaticResource MenuListViewStyle}"
-              ItemsSource = "{Binding Path=MenuGroups }" >
+    <ListView ItemsSource="{Binding Path=MenuGroups}" Style="{StaticResource MenuListViewStyle}">
         <ListView.ItemTemplate>
-            <DataTemplate
-                DataType = "menu:MenuGroupViewModel" >
+            <DataTemplate DataType="menu:MenuGroupViewModel">
                 <menu1:MenuGroup />
             </DataTemplate>
         </ListView.ItemTemplate>

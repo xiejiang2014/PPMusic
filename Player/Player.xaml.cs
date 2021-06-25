@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ControlzEx.Theming;
 
 namespace PPMusic.Player
 {
@@ -23,6 +24,9 @@ namespace PPMusic.Player
         public Player()
         {
             InitializeComponent();
+
+
+            ThemeManager.Current.ChangeThemeColorScheme(Application.Current, "PPGreenBlue");
         }
     }
 }

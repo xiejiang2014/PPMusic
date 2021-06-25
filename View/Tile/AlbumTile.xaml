@@ -1,155 +1,163 @@
-﻿<UserControl x:Class = "PPMusic.View.Tile.AlbumTile"
-             xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mah = "http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:model = "clr-namespace:PPMusic.Model"
-             mc:Ignorable = "d"
-             d:DataContext = "{d:DesignInstance model:Album}" >
+﻿<UserControl
+    x:Class="PPMusic.View.Tile.AlbumTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="clr-namespace:PPMusic.Model"
+    d:DataContext="{d:DesignInstance model:Album}"
+    mc:Ignorable="d">
 
-    <Grid Width = "Auto" >
+    <Grid Width="Auto">
         <Grid.RowDefinitions>
-            <RowDefinition Height = "Auto" />
-            <RowDefinition Height = "Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
 
-        <Grid HorizontalAlignment = "Left" >
+        <Grid HorizontalAlignment="Left">
             <Grid.RenderTransform>
-                <TranslateTransform
-                    x:Name = "MainContentTranslateTransform" />
+                <TranslateTransform x:Name="MainContentTranslateTransform" />
             </Grid.RenderTransform>
-            <!-- 背景图片(专辑封面) -->
-            <mah:ClipBorder HorizontalAlignment = "Left"
-                            Width = "256"
-                            Height = "256"
-                            CornerRadius = "8" >
+            <!--  背景图片(专辑封面)  -->
+            <mah:ClipBorder
+                Width="256"
+                Height="256"
+                HorizontalAlignment="Left"
+                CornerRadius="8">
 
                 <Grid>
-                    <Image
-                        Source = "{Binding Path=CoverImageUrl}" />
+                    <Image Source="{Binding Path=CoverImageUrl}" />
 
-                    <Rectangle x:Name = "MaskRectangle"
-                               Opacity = "0"
-                               Fill = "#88000000" />
+                    <Rectangle
+                        x:Name="MaskRectangle"
+                        Fill="#88000000"
+                        Opacity="0" />
                 </Grid>
 
 
             </mah:ClipBorder>
 
 
-            <!-- 播放按钮 -->
-            <Button HorizontalAlignment = "Center"
-                    VerticalAlignment = "Center"
-                    x:Name = "PlayButton"
-                    Opacity = "0"
-                    Style = "{StaticResource TilePlayButtonStyle}" >
-                <Path Width = "48"
-                      Height = "48"
-                      Margin = "0,0,0,0"
-                      Data = "M768 1408c424 0 768 -344 768 -768s-344 -768 -768 -768s-768 344 -768 768s344 768 768 768zM1152 585c20 11 32 32 32 55s-12 44 -32 55l-544 320c-19 12 -44 12 -64 1c-20 -12 -32 -33 -32 -56v-640c0 -23 12 -44 32 -56c10 -5 21 -8 32 -8s22 3 32 9z"
-                      Fill = "{Binding ElementName= PlayButton ,Path=Foreground }"
-                      Stretch = "Uniform" />
+            <!--  播放按钮  -->
+            <Button
+                x:Name="PlayButton"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Opacity="0"
+                Style="{StaticResource TilePlayButtonStyle}">
             </Button>
 
-            <!-- 播放量 -->
-            <mah:ClipBorder x:Name = "PlayCountBorder"
-                            Margin = "0,0,10,10"
-                            CornerRadius = "12"
-                            HorizontalAlignment = "Right"
-                            VerticalAlignment = "Bottom"
-                            Background = "#66000000"
-                            Padding = "10,4" >
+            <!--  播放量  -->
+            <mah:ClipBorder
+                x:Name="PlayCountBorder"
+                Margin="0,0,10,10"
+                Padding="10,4"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="#66000000"
+                CornerRadius="12">
 
-                <StackPanel Orientation = "Horizontal" >
-                    <Path Width = "16"
-                          Height = "16"
-                          Margin = "0,0,0,0"
-                          Data = "M256 32C114.52 32 0 146.496 0 288v48a32 32 0 0 0 17.689 28.622l14.383 7.191C34.083 431.903 83.421 480 144 480h24c13.255 0 24-10.745 24-24V280c0-13.255-10.745-24-24-24h-24c-31.342 0-59.671 12.879-80 33.627V288c0-105.869 86.131-192 192-192s192 86.131 192 192v1.627C427.671 268.879 399.342 256 368 256h-24c-13.255 0-24 10.745-24 24v176c0 13.255 10.745 24 24 24h24c60.579 0 109.917-48.098 111.928-108.187l14.382-7.191A32 32 0 0 0 512 336v-48c0-141.479-114.496-256-256-256z"
-                          Fill = "White"
-                          Stretch = "Uniform" />
+                <StackPanel Orientation="Horizontal">
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Margin="0,0,0,0"
+                        Data="M256 32C114.52 32 0 146.496 0 288v48a32 32 0 0 0 17.689 28.622l14.383 7.191C34.083 431.903 83.421 480 144 480h24c13.255 0 24-10.745 24-24V280c0-13.255-10.745-24-24-24h-24c-31.342 0-59.671 12.879-80 33.627V288c0-105.869 86.131-192 192-192s192 86.131 192 192v1.627C427.671 268.879 399.342 256 368 256h-24c-13.255 0-24 10.745-24 24v176c0 13.255 10.745 24 24 24h24c60.579 0 109.917-48.098 111.928-108.187l14.382-7.191A32 32 0 0 0 512 336v-48c0-141.479-114.496-256-256-256z"
+                        Fill="White"
+                        Stretch="Uniform" />
 
-                    <TextBlock Margin = "15,0,0,0"
-                               Foreground = "White"
-                               Text = "{Binding Path=PlayCountText}" />
+                    <TextBlock
+                        Margin="15,0,0,0"
+                        Foreground="White"
+                        Text="{Binding Path=PlayCountText}" />
                 </StackPanel>
             </mah:ClipBorder>
         </Grid>
 
-        <!-- 底部的标题 -->
-        <Button Grid.Row = "1"
-                Margin = "0,10,0,0"
-                Cursor = "Hand"
-                HorizontalAlignment = "Left"
-                Content = "{Binding Path=Title}"
-                Style = "{StaticResource TileTitleButtonStyle}" />
+        <!--  底部的标题  -->
+        <Button
+            Grid.Row="1"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Left"
+            Content="{Binding Path=Title}"
+            Cursor="Hand"
+            Style="{StaticResource TileTitleButtonStyle}" />
     </Grid>
 
     <UserControl.Triggers>
-        <EventTrigger RoutedEvent = "MouseEnter" >
+        <EventTrigger RoutedEvent="MouseEnter">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation To = "1"
-                                     Duration = "0:0:0.5"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "MaskRectangle"
-                                     Storyboard.TargetProperty = "(Button.Opacity)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="MaskRectangle"
+                        Storyboard.TargetProperty="(Button.Opacity)"
+                        To="1"
+                        Duration="0:0:0.5" />
 
-                    <DoubleAnimation To = "1"
-                                     Duration = "0:0:0.5"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "PlayButton"
-                                     Storyboard.TargetProperty = "(Button.Opacity)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="PlayButton"
+                        Storyboard.TargetProperty="(Button.Opacity)"
+                        To="1"
+                        Duration="0:0:0.5" />
 
-                    <DoubleAnimation To = "0"
-                                     Duration = "0:0:0.5"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "PlayCountBorder"
-                                     Storyboard.TargetProperty = "(Button.Opacity)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="PlayCountBorder"
+                        Storyboard.TargetProperty="(Button.Opacity)"
+                        To="0"
+                        Duration="0:0:0.5" />
 
-                    <DoubleAnimation To = "-10"
-                                     Duration = "0:0:0.2"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "MainContentTranslateTransform"
-                                     Storyboard.TargetProperty = "(TranslateTransform.Y)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="MainContentTranslateTransform"
+                        Storyboard.TargetProperty="(TranslateTransform.Y)"
+                        To="-10"
+                        Duration="0:0:0.2" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
-        <EventTrigger RoutedEvent = "MouseLeave" >
+        <EventTrigger RoutedEvent="MouseLeave">
             <BeginStoryboard>
                 <Storyboard>
-                    <DoubleAnimation To = "0"
-                                     Duration = "0:0:0.5"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "MaskRectangle"
-                                     Storyboard.TargetProperty = "(Button.Opacity)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="MaskRectangle"
+                        Storyboard.TargetProperty="(Button.Opacity)"
+                        To="0"
+                        Duration="0:0:0.5" />
 
-                    <DoubleAnimation To = "0"
-                                     Duration = "0:0:0.5"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "PlayButton"
-                                     Storyboard.TargetProperty = "(Button.Opacity)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="PlayButton"
+                        Storyboard.TargetProperty="(Button.Opacity)"
+                        To="0"
+                        Duration="0:0:0.5" />
 
-                    <DoubleAnimation To = "1"
-                                     Duration = "0:0:0.5"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "PlayCountBorder"
-                                     Storyboard.TargetProperty = "(Button.Opacity)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="PlayCountBorder"
+                        Storyboard.TargetProperty="(Button.Opacity)"
+                        To="1"
+                        Duration="0:0:0.5" />
 
-                    <DoubleAnimation To = "0"
-                                     Duration = "0:0:0.2"
-                                     AccelerationRatio = "0.10"
-                                     DecelerationRatio = "0.25"
-                                     Storyboard.TargetName = "MainContentTranslateTransform"
-                                     Storyboard.TargetProperty = "(TranslateTransform.Y)" />
+                    <DoubleAnimation
+                        AccelerationRatio="0.10"
+                        DecelerationRatio="0.25"
+                        Storyboard.TargetName="MainContentTranslateTransform"
+                        Storyboard.TargetProperty="(TranslateTransform.Y)"
+                        To="0"
+                        Duration="0:0:0.2" />
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>

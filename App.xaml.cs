@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
+using ControlzEx.Theming;
 using PPMusic.View;
 using PPMusic.View.Menu;
 using PPMusic.View.MusicContents;
@@ -21,6 +23,25 @@ namespace PPMusic
     /// </summary>
     public partial class App
     {
+        public App()
+        {
+            var color = Color.FromRgb(31, 211, 182);
+
+            var theme = new Theme(
+                "Light.PPGreenBlue",
+                "PPGreenBlue(Light)",
+                "Light",
+                "PPGreenBlue",
+                color,
+                new SolidColorBrush(color),
+                false,
+                false
+            );
+
+            ThemeManager.Current.AddTheme(theme);
+
+        }
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             //注册导航地址薄
