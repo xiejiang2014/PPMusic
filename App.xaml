@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPMusic"
+    xmlns:player="clr-namespace:PPMusic.Player"
     xmlns:unity="http://prismlibrary.com/">
 
     <Application.Resources>
@@ -18,6 +19,9 @@
             </ResourceDictionary.MergedDictionaries>
 
             <SolidColorBrush x:Key="MahApps.Brushes.Button.Flat.Background.MouseOver" Color="#d8d8d8" />
+
+
+            <player:OrderModeToIconPathConverter x:Key="OrderModeToIconPathConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

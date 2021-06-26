@@ -1,0 +1,57 @@
+﻿<UserControl
+    x:Class="PPMusic.Player.OrderModesSelectPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="175"
+    d:DesignWidth="118"
+    Background="Transparent"
+    mc:Ignorable="d">
+    <UserControl.Effect>
+        <DropShadowEffect
+            BlurRadius="20"
+            Opacity="0.3"
+            ShadowDepth="0" />
+    </UserControl.Effect>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Padding="3"
+            Background="White"
+            BorderThickness="0"
+            CornerRadius="6">
+            <StackPanel>
+                <Button HorizontalAlignment="Center" Style="{StaticResource PlayerRanAllButtonStyle}" />
+                <Rectangle
+                    Height="1"
+                    HorizontalAlignment="Stretch"
+                    Fill="{DynamicResource MahApps.Brushes.Gray8}" />
+                <Button HorizontalAlignment="Center" Style="{StaticResource PlayerOrderButtonStyle}" />
+                <Rectangle
+                    Height="1"
+                    HorizontalAlignment="Stretch"
+                    Fill="{DynamicResource MahApps.Brushes.Gray8}" />
+                <Button HorizontalAlignment="Center" Style="{StaticResource PlayerLoopSingleButtonStyle}" />
+                <Rectangle
+                    Height="1"
+                    HorizontalAlignment="Stretch"
+                    Fill="{DynamicResource MahApps.Brushes.Gray8}" />
+                <Button HorizontalAlignment="Center" Style="{StaticResource PlayerLoopListButtonStyle}" />
+            </StackPanel>
+        </Border>
+
+        <Path
+            Grid.Row="1"
+            Height="11"
+            Margin="0,0,0,0"
+            Data="M7,10L12,15L17,10H7Z"
+            Fill="White"
+            Stretch="Uniform" />
+    </Grid>
+</UserControl>

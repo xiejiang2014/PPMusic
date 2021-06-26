@@ -1,4 +1,6 @@
-﻿using MvvmHelpers;
+﻿using System.Windows;
+using ControlzEx.Theming;
+using MvvmHelpers;
 using PPMusic.View.Menu;
 using Prism.Commands;
 using Prism.Regions;
@@ -16,6 +18,7 @@ namespace PPMusic.ViewModel
                                     NavigationCatalog navigationCatalog
         )
         {
+            ThemeManager.Current.ChangeThemeColorScheme(Application.Current, "PPGreenBlue");
             _regionManager     = regionManager;
             _navigationCatalog = navigationCatalog;
             regionManager.RegisterViewWithRegion(navigationCatalog.MenuRegion, typeof(Menus));
