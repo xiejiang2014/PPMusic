@@ -75,7 +75,7 @@
                 Transition="Left" />
 
             <!--  底部的播放控制区  -->
-            <player:Player Grid.Row="2" />
+            <player:PlayerCommandsBar Grid.Row="2" />
 
         </Grid>
     </Grid>

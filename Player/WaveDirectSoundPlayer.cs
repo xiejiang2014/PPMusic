@@ -14,7 +14,7 @@ namespace PPMusic.Player
     /// <summary>
     /// 对 NAudio 的基础类进行包装而成的音频播放器
     /// </summary>
-    public class WaveDirectSoundPlayer 
+    public class WaveDirectSoundPlayer : INotifyPropertyChanged, IDisposable
     {
         public WaveDirectSoundPlayer()
         {
@@ -24,16 +24,12 @@ namespace PPMusic.Player
         private readonly Timer _timer = new(200);
 
         private void _timer_Elapsed(object sender,
-                                    ElapsedEventArgs e
+            ElapsedEventArgs e
         )
         {
             OnPropertyChanged(nameof(CurrentTime));
         }
 
-        /// <summary>
-        /// 支持的文件类型
-        /// </summary>
-        public IReadOnlyList<string> SupportedFileTypes { get; } = new List<string> { "mp3", "wav" };
 
         #region 播放核心
 
@@ -88,7 +84,7 @@ namespace PPMusic.Player
 
         #endregion
 
-        #region nAudio 提供的音频文件读取器
+        #region NAudio 提供的音频文件读取器
 
         private void InitAudioFileReader()
         {
@@ -98,7 +94,7 @@ namespace PPMusic.Player
                 {
                     AudioFileReader = new AudioFileReader(AudioFile)
                     {
-                        Volume = Volume
+                        Volume = IsMute ? 0 : Volume
                     };
                 }
                 else
@@ -173,11 +169,11 @@ namespace PPMusic.Player
                     return TimeSpan.Zero;
                 }
 
-                return (DirectSoundOut.PlaybackState == PlaybackState.Stopped) ?
-                           TimeSpan.Zero :
-                           AudioFileReader.CurrentTime;
-
                 //此处不能使用 DirectSoundOut.GetPosition , 因为可能未实现该接口
+
+                return (DirectSoundOut.PlaybackState == PlaybackState.Stopped)
+                    ? TimeSpan.Zero
+                    : AudioFileReader.CurrentTime;
             }
             set => SetPositionInMilliseconds(value.TotalMilliseconds);
         }
@@ -190,22 +186,11 @@ namespace PPMusic.Player
                 throw new ApplicationException("尚未打开音频文件,无法获取长度.");
             }
 
-            return TimeSpan.FromSeconds(AudioFileReader.Length / (double)AudioFileReader.WaveFormat.AverageBytesPerSecond).TotalMilliseconds;
+            return TimeSpan
+                .FromSeconds(AudioFileReader.Length / (double) AudioFileReader.WaveFormat.AverageBytesPerSecond)
+                .TotalMilliseconds;
         }
 
-        public double GetLengthInSecondsWithTempo()
-        {
-            return GetLengthInMillisecondsWithTempo() * 1000;
-        }
-
-
-        public double GetLengthInMillisecondsWithTempo()
-        {
-            throw new NotImplementedException("尚未支持的操作.");
-        }
-
-
-        /// <inheritdoc />
         public double GetPositionInMilliseconds()
         {
             if (DirectSoundOut == null || AudioFileReader == null)
@@ -213,10 +198,11 @@ namespace PPMusic.Player
                 return 0;
             }
 
-            return TimeSpan.FromSeconds(DirectSoundOut.GetPosition() / (double)AudioFileReader.WaveFormat.AverageBytesPerSecond).TotalMilliseconds;
+            return TimeSpan
+                .FromSeconds(DirectSoundOut.GetPosition() / (double) AudioFileReader.WaveFormat.AverageBytesPerSecond)
+                .TotalMilliseconds;
         }
 
-        /// <inheritdoc />
         public void SetPositionInMilliseconds(double milliseconds)
         {
             if (AudioFileReader == null)
@@ -224,24 +210,18 @@ namespace PPMusic.Player
                 throw new ApplicationException("尚未打开音频文件,无法设置位置.");
             }
 
-            AudioFileReader.Position = (long)(AudioFileReader.WaveFormat.AverageBytesPerSecond * milliseconds / 1000d);
+            AudioFileReader.Position = (long) (AudioFileReader.WaveFormat.AverageBytesPerSecond * milliseconds / 1000d);
         }
 
         #endregion
 
-        //public virtual TimeSpan CurrentTime
-        //{
-        //    get => TimeSpan.FromSeconds((double)this.Position / (double)this.WaveFormat.AverageBytesPerSecond);
-        //    set => this.Position = (long)(value.TotalSeconds  * (double)this.WaveFormat.AverageBytesPerSecond);
-        //}
 
         #region 播放状态
 
-        // ReSharper disable once EventNeverSubscribedTo.Global
         public event EventHandler PlayStatusChanged;
 
         /// <summary>
-        /// 播放状态(不可能为 PlayStatus.Preparing)
+        /// 播放状态
         /// </summary>
         public PlayStatus PlayStatus { get; private set; }
 
@@ -271,16 +251,41 @@ namespace PPMusic.Player
 
         #endregion
 
-        #region Volume
-
-        #region 循环起止点 //todo 尚未实现
-
-        public long LoopStartPos { get; set; }
-        public long LoopEndPos { get; set; }
-
-        #endregion
+        #region 音量
 
         public event EventHandler VolumeChanged;
+
+        private bool _isMute;
+
+        /// <summary>
+        /// 静音
+        /// </summary>
+        public bool IsMute
+        {
+            get => _isMute;
+            set
+            {
+                _isMute = value;
+
+                if (AudioFileReader == null) return;
+
+                if (_isMute)
+                {
+                    if (AudioFileReader.Volume != 0f)
+                    {
+                        AudioFileReader.Volume = 0f;
+                    }
+                }
+                else
+                {
+                    if (Math.Abs(AudioFileReader.Volume - Volume) > 0.0001)
+                    {
+                        AudioFileReader.Volume = Volume;
+                    }
+                }
+            }
+        }
+
 
         private float _volume = 1f;
 
@@ -289,7 +294,7 @@ namespace PPMusic.Player
             get => _volume;
             set
             {
-                if (value > 1f || value < 0)
+                if (value is > 1f or < 0f)
                 {
                     throw new ArgumentOutOfRangeException(nameof(Volume), $"值{value}超出了音量值的取值范围为0~1.");
                 }
@@ -298,8 +303,10 @@ namespace PPMusic.Player
 
                 if (AudioFileReader != null)
                 {
-                    AudioFileReader.Volume = value;
+                    AudioFileReader.Volume = _volume;
                 }
+
+                IsMute = _volume == 0f;
 
                 VolumeChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -307,21 +314,12 @@ namespace PPMusic.Player
 
         #endregion
 
-        //todo 尚未支持改变tempo
-        public bool CanChangeTempo { get; } = false;
-        public event EventHandler TempoChanged;
-        public int Tempo { get; set; }
-
-        // ReSharper disable once EventNeverSubscribedTo.Global
-        public event EventHandler PlayComplete;
-
-        #region 自定义函数
+        #region 获取系统所有声音播放设备
 
         /// <summary>
         /// 获取当前系统中能够进行声音输出的设备编号和名称
         /// </summary>
         /// <returns></returns>
-        // ReSharper disable once UnusedMember.Global
         public static Dictionary<int, string> InitDevice()
         {
             var result = new Dictionary<int, string>();
@@ -335,10 +333,13 @@ namespace PPMusic.Player
             return result;
         }
 
+        #endregion
 
         #region Play
 
         public event EventHandler PlayStarted;
+
+        public event EventHandler PlayComplete;
 
         public bool CanPlay =>
             !string.IsNullOrWhiteSpace(AudioFile) &&
@@ -388,9 +389,7 @@ namespace PPMusic.Player
                 DeviceGuid = device?.Guid ?? Guid.Empty;
             }
 
-            DirectSoundOut = DeviceGuid == Guid.Empty ?
-                                 new DirectSoundOut() :
-                                 new DirectSoundOut(DeviceGuid);
+            DirectSoundOut = DeviceGuid == Guid.Empty ? new DirectSoundOut() : new DirectSoundOut(DeviceGuid);
 
             DirectSoundOut.Init(AudioFileReader);
 
@@ -479,7 +478,7 @@ namespace PPMusic.Player
 
 
         private void OnPlaybackStopped(object sender,
-                                       StoppedEventArgs e
+            StoppedEventArgs e
         )
         {
             //只有在播放完全部的音频时才触发 PlayComplete
@@ -497,16 +496,6 @@ namespace PPMusic.Player
         }
 
         #endregion
-
-        #region 工作状态(是否正在工作)
-
-        public event EventHandler IsProcessingCommandChanged;
-
-        public bool IsProcessingCommand { get; }
-
-        #endregion
-
-        #endregion 自定义函数
 
         #region 销毁
 

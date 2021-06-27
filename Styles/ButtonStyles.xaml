@@ -40,9 +40,9 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsPressed" Value="True">
+            <!--<Trigger Property="IsPressed" Value="True">
                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsEnabled" Value="False">
                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
             </Trigger>
@@ -351,8 +351,8 @@
                 <Setter.Value>
                     <DataTemplate>
                         <Path
-                            Width="16"
-                            Height="16"
+                            Width="18"
+                            Height="18"
                             Margin="0,0,0,0"
                             Data="M350 900A50 50 0 0 0 400 850V350A50 50 0 0 0 300 350V850A50 50 0 0 0 350 900zM453.95 579.5999999999999A25 25 0 0 0 453.95 620.4L810.6 872.1999999999999A25 25 0 0 0 850 851.75V348.25A25 25 0 0 0 810.6 327.8000000000001L453.95 579.6z"
                             Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"
@@ -374,8 +374,8 @@
                 <Setter.Value>
                     <DataTemplate>
                         <Path
-                            Width="16"
-                            Height="16"
+                            Width="18"
+                            Height="18"
                             Margin="0,0,0,0"
                             Data="M389.4000000000001 327.8000000000001A25 25 0 0 0 350 348.25V851.75A25 25 0 0 0 389.4000000000001 872.2L746.05 620.4000000000001A25 25 0 0 0 746.05 579.6L389.4 327.8000000000001zM800 850A50 50 0 0 0 900 850V350A50 50 0 1 0 800 350V850z"
                             Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"

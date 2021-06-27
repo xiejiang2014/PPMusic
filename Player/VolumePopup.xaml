@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="PPMusic.Player.OrderModesSelectPopup"
+    x:Class="PPMusic.Player.VolumePopup"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
     Background="Transparent"
     mc:Ignorable="d">
 
-    <Grid VerticalAlignment="Center" IsSharedSizeScope="True">
+    <Grid IsSharedSizeScope="True">
         <!--  背景 由于需要提供阴影,所以内容不能直接放在这里,否则会导致字体模糊  -->
         <Grid>
             <Grid.RowDefinitions>
@@ -41,43 +41,43 @@
 
 
         <Grid>
-
+            <!--  使用共享尺寸组撑起背景区的面积  -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" SharedSizeGroup="D20EE3D36" />
                 <RowDefinition Height="Auto" SharedSizeGroup="UH6HR7Ho8" />
             </Grid.RowDefinitions>
 
             <Border
-                Padding="3"
+                Padding="26,15"
                 Background="Transparent"
                 BorderThickness="0">
                 <StackPanel>
-                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerRanAllButtonStyle}" />
+                    <Slider
+                        Height="127"
+                        Margin="0,7"
+                        Maximum="100"
+                        Orientation="Vertical"
+                        Style="{StaticResource PlayerVolumeSliderStyle}" />
 
+                    <!--  音量百分比  -->
+                    <TextBlock
+                        Margin="0,7"
+                        HorizontalAlignment="Center"
+                        FontSize="16"
+                        Text="40%" />
+
+                    <!--  分割线  -->
                     <Rectangle
                         Height="1"
+                        Margin="-26,16"
                         HorizontalAlignment="Stretch"
                         Fill="{DynamicResource MahApps.Brushes.Gray8}" />
 
-                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerOrderButtonStyle}" />
-
-                    <Rectangle
-                        Height="1"
-                        HorizontalAlignment="Stretch"
-                        Fill="{DynamicResource MahApps.Brushes.Gray8}" />
-                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerLoopSingleButtonStyle}" />
-
-                    <Rectangle
-                        Height="1"
-                        HorizontalAlignment="Stretch"
-                        Fill="{DynamicResource MahApps.Brushes.Gray8}" />
-
-                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerLoopListButtonStyle}" />
+                    <!--  静音按钮  -->
+                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerVolumeButtonStyle}" />
                 </StackPanel>
             </Border>
-
         </Grid>
-
 
     </Grid>
 </UserControl>

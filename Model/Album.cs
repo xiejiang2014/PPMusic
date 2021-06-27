@@ -7,7 +7,7 @@ namespace PPMusic.Model
     /// <summary>
     /// 专辑
     /// </summary>
-    class Album : BaseViewModel
+    public class Album : BaseViewModel
     {
         /// <summary>
         /// 封面图片
