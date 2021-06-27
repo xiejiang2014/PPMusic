@@ -86,7 +86,11 @@
 
                 <!--  播放和暂停  -->
                 <Grid>
-                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerPlayButtonStyle}" />
+                    <Button
+                        HorizontalAlignment="Center"
+                        Command="{Binding ElementName=ThisPlayerCommandsBar, Path=PlayCommand}"
+                        Style="{StaticResource PlayerPlayButtonStyle}"
+                        Visibility="{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled}" />
 
                     <Button HorizontalAlignment="Center" Style="{StaticResource PlayerPauseButtonStyle}" />
                 </Grid>
