@@ -18,7 +18,7 @@ namespace PPMusic.ViewModel.MusicContents
         public MusicHallViewModel(FakeDataCreator fakeDataCreator)
         {
             var albumsGroup = fakeDataCreator.CreateAlbumGroup(3);
-            albumsGroup.Title = "Hi 邦德 今日为你推荐";
+            albumsGroup.Title = "Hi 张三 今日为你推荐";
             AlbumsGroupList.Add(albumsGroup);
 
             albumsGroup       = fakeDataCreator.CreateAlbumGroup(12);

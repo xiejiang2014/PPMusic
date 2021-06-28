@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using ControlzEx.Theming;
 using MvvmHelpers;
 using PPMusic.View.Menu;
@@ -10,22 +11,33 @@ namespace PPMusic.ViewModel
 {
     class ShellWindowViewModel : BaseViewModel
     {
-        private readonly IRegionManager    _regionManager;
+        private readonly IRegionManager _regionManager;
         private readonly NavigationCatalog _navigationCatalog;
 
+        private ICommand _loadedCommand;
+        public ICommand LoadedCommand => _loadedCommand ??= new DelegateCommand(Loaded);
+
+
         [InjectionConstructor]
-        public ShellWindowViewModel(IRegionManager    regionManager,
-                                    NavigationCatalog navigationCatalog
+        public ShellWindowViewModel(IRegionManager regionManager,
+            NavigationCatalog navigationCatalog
         )
         {
             ThemeManager.Current.ChangeThemeColorScheme(Application.Current, "PPGreenBlue");
-            _regionManager     = regionManager;
+            _regionManager = regionManager;
             _navigationCatalog = navigationCatalog;
             regionManager.RegisterViewWithRegion(navigationCatalog.MenuRegion, typeof(Menus));
 
 
             Commands.MainRegionNavigationCommand = new DelegateCommand<string>(MainRegionNavigation);
         }
+
+        private void Loaded()
+        {
+            //默认导航到推荐页
+            Commands.MainRegionNavigationCommand.Execute(_navigationCatalog.Recommend);
+        }
+
 
         private void MainRegionNavigation(string navigationTarget)
         {

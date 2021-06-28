@@ -23,8 +23,8 @@ namespace PPMusic.Player
 
         private readonly Timer _timer = new(200);
 
-        private void _timer_Elapsed(object sender,
-            ElapsedEventArgs e
+        private void _timer_Elapsed(object           sender,
+                                    ElapsedEventArgs e
         )
         {
             OnPropertyChanged(nameof(CurrentTime));
@@ -93,9 +93,9 @@ namespace PPMusic.Player
                 if (File.Exists(AudioFile))
                 {
                     AudioFileReader = new AudioFileReader(AudioFile)
-                    {
-                        Volume = IsMute ? 0 : Volume
-                    };
+                                      {
+                                          Volume = IsMute ? 0 : Volume
+                                      };
                 }
                 else
                 {
@@ -171,9 +171,7 @@ namespace PPMusic.Player
 
                 //此处不能使用 DirectSoundOut.GetPosition , 因为可能未实现该接口
 
-                return (DirectSoundOut.PlaybackState == PlaybackState.Stopped)
-                    ? TimeSpan.Zero
-                    : AudioFileReader.CurrentTime;
+                return (DirectSoundOut.PlaybackState == PlaybackState.Stopped) ? TimeSpan.Zero : AudioFileReader.CurrentTime;
             }
             set => SetPositionInMilliseconds(value.TotalMilliseconds);
         }
@@ -187,8 +185,8 @@ namespace PPMusic.Player
             }
 
             return TimeSpan
-                .FromSeconds(AudioFileReader.Length / (double) AudioFileReader.WaveFormat.AverageBytesPerSecond)
-                .TotalMilliseconds;
+                  .FromSeconds(AudioFileReader.Length / (double) AudioFileReader.WaveFormat.AverageBytesPerSecond)
+                  .TotalMilliseconds;
         }
 
         public double GetPositionInMilliseconds()
@@ -199,8 +197,8 @@ namespace PPMusic.Player
             }
 
             return TimeSpan
-                .FromSeconds(DirectSoundOut.GetPosition() / (double) AudioFileReader.WaveFormat.AverageBytesPerSecond)
-                .TotalMilliseconds;
+                  .FromSeconds(DirectSoundOut.GetPosition() / (double) AudioFileReader.WaveFormat.AverageBytesPerSecond)
+                  .TotalMilliseconds;
         }
 
         public void SetPositionInMilliseconds(double milliseconds)
@@ -241,12 +239,12 @@ namespace PPMusic.Player
             }
 
             PlayStatus = DirectSoundOut.PlaybackState switch
-            {
-                PlaybackState.Playing => PlayStatus.Playing,
-                PlaybackState.Paused => PlayStatus.Paused,
-                PlaybackState.Stopped => PlayStatus.Stopped,
-                _ => throw new ArgumentOutOfRangeException()
-            };
+                         {
+                             PlaybackState.Playing => PlayStatus.Playing,
+                             PlaybackState.Paused  => PlayStatus.Paused,
+                             PlaybackState.Stopped => PlayStatus.Stopped,
+                             _                     => throw new ArgumentOutOfRangeException()
+                         };
         }
 
         #endregion
@@ -343,7 +341,8 @@ namespace PPMusic.Player
 
         public bool CanPlay =>
             !string.IsNullOrWhiteSpace(AudioFile) &&
-            AudioFileReader != null;
+            AudioFileReader != null               &&
+            PlayStatus      != PlayStatus.Playing;
 
         public void GetReadyToPlay()
         {
@@ -404,7 +403,7 @@ namespace PPMusic.Player
 
         public bool CanPause =>
             DirectSoundOut != null &&
-            PlayStatus == PlayStatus.Playing;
+            PlayStatus     == PlayStatus.Playing;
 
         public void Pause()
         {
@@ -431,7 +430,7 @@ namespace PPMusic.Player
 
         public bool CanResume =>
             DirectSoundOut != null &&
-            PlayStatus == PlayStatus.Paused;
+            PlayStatus     == PlayStatus.Paused;
 
         public void Resume()
         {
@@ -458,9 +457,9 @@ namespace PPMusic.Player
         public event EventHandler Stopped;
 
         public bool CanStop =>
-            DirectSoundOut != null &&
-            PlayStatus != PlayStatus.Stopped &&
-            PlayStatus != PlayStatus.None;
+            DirectSoundOut != null               &&
+            PlayStatus     != PlayStatus.Stopped &&
+            PlayStatus     != PlayStatus.None;
 
         public void Stop()
         {
@@ -477,8 +476,8 @@ namespace PPMusic.Player
         }
 
 
-        private void OnPlaybackStopped(object sender,
-            StoppedEventArgs e
+        private void OnPlaybackStopped(object           sender,
+                                       StoppedEventArgs e
         )
         {
             //只有在播放完全部的音频时才触发 PlayComplete

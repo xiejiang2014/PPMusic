@@ -1,80 +1,89 @@
-﻿<UserControl
-    x:Class="PPMusic.Player.VolumePopup"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Background="Transparent"
-    mc:Ignorable="d">
+﻿<UserControl x:Class = "PPMusic.Player.VolumePopup"
+             xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mah = "http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:player = "clr-namespace:PPMusic.Player"
+             Background = "Transparent"
+             d:DataContext = "{d:DesignInstance player:WaveDirectSoundPlayer}"
+             mc:Ignorable = "d" >
 
-    <Grid IsSharedSizeScope="True">
+    <Grid IsSharedSizeScope = "True" >
         <!--  背景 由于需要提供阴影,所以内容不能直接放在这里,否则会导致字体模糊  -->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" SharedSizeGroup="D20EE3D36" />
-                <RowDefinition Height="Auto" SharedSizeGroup="UH6HR7Ho8" />
+                <RowDefinition Height = "*"
+                               SharedSizeGroup = "D20EE3D36" />
+                <RowDefinition Height = "Auto"
+                               SharedSizeGroup = "UH6HR7Ho8" />
             </Grid.RowDefinitions>
             <Grid.Effect>
-                <DropShadowEffect
-                    BlurRadius="20"
-                    Opacity="0.3"
-                    ShadowDepth="0" />
+                <DropShadowEffect BlurRadius = "20"
+                                  Opacity = "0.3"
+                                  ShadowDepth = "0" />
             </Grid.Effect>
 
             <!--  主背景  -->
-            <Border
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="White"
-                BorderThickness="0"
-                CornerRadius="10" />
+            <Border HorizontalAlignment = "Stretch"
+                    VerticalAlignment = "Stretch"
+                    Background = "White"
+                    BorderThickness = "0"
+                    CornerRadius = "10" />
 
             <!--  底部的小三角  -->
-            <Path
-                Grid.Row="1"
-                Height="11"
-                Margin="0,0,0,0"
-                Data="M7,10L12,15L17,10H7Z"
-                Fill="White"
-                Stretch="Uniform" />
+            <Path Grid.Row = "1"
+                  Height = "11"
+                  Margin = "0,0,0,0"
+                  Data = "M7,10L12,15L17,10H7Z"
+                  Fill = "White"
+                  Stretch = "Uniform" />
         </Grid>
 
 
         <Grid>
             <!--  使用共享尺寸组撑起背景区的面积  -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" SharedSizeGroup="D20EE3D36" />
-                <RowDefinition Height="Auto" SharedSizeGroup="UH6HR7Ho8" />
+                <RowDefinition Height = "*"
+                               SharedSizeGroup = "D20EE3D36" />
+                <RowDefinition Height = "Auto"
+                               SharedSizeGroup = "UH6HR7Ho8" />
             </Grid.RowDefinitions>
 
-            <Border
-                Padding="26,15"
-                Background="Transparent"
-                BorderThickness="0">
+            <Border Padding = "26,15"
+                    MinWidth = "100"
+                    Background = "Transparent"
+                    BorderThickness = "0" >
                 <StackPanel>
-                    <Slider
-                        Height="127"
-                        Margin="0,7"
-                        Maximum="100"
-                        Orientation="Vertical"
-                        Style="{StaticResource PlayerVolumeSliderStyle}" />
+                    <Slider Height = "127"
+                            Margin = "0,7"
+                            Maximum = "1"
+                            SmallChange = "0.01"
+                            LargeChange = "0.05"
+                            Value = "{Binding Volume,Mode=TwoWay}"
+                            mah:SliderHelper.ChangeValueBy = "LargeChange"
+                            mah:SliderHelper.EnableMouseWheel = "MouseHover"
+                            Orientation = "Vertical"
+                            Style = "{StaticResource PlayerVolumeSliderStyle}" />
 
                     <!--  音量百分比  -->
-                    <TextBlock
-                        Margin="0,7"
-                        HorizontalAlignment="Center"
-                        FontSize="16"
-                        Text="40%" />
+                    <TextBlock Margin = "0,7"
+                               HorizontalAlignment = "Center"
+                               FontSize = "16"
+                               Text = "{Binding Volume,Mode=OneWay,StringFormat={}{0:P0}}" />
 
                     <!--  分割线  -->
-                    <Rectangle
-                        Height="1"
-                        Margin="-26,16"
-                        HorizontalAlignment="Stretch"
-                        Fill="{DynamicResource MahApps.Brushes.Gray8}" />
+                    <Rectangle Height = "1"
+                               Margin = "-26,16"
+                               HorizontalAlignment = "Stretch"
+                               Fill = "{DynamicResource MahApps.Brushes.Gray8}" />
 
                     <!--  静音按钮  -->
-                    <Button HorizontalAlignment="Center" Style="{StaticResource PlayerVolumeButtonStyle}" />
+                    <ToggleButton
+                        IsChecked = "{Binding IsMute,Mode=TwoWay}"
+                        HorizontalAlignment = "Center"
+                        Style = "{StaticResource MuteToggleButtonStyle}" />
+
                 </StackPanel>
             </Border>
         </Grid>

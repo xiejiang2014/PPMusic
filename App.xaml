@@ -4,10 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:PPMusic"
     xmlns:player="clr-namespace:PPMusic.Player"
-    xmlns:unity="http://prismlibrary.com/">
+    xmlns:unity="http://prismlibrary.com/"
+    xmlns:converters = "clr-namespace:PPMusic.Converters" >
 
     <Application.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -16,12 +18,16 @@
                 <ResourceDictionary Source="/Styles/ListViewStyles.xaml" />
                 <ResourceDictionary Source="/Styles/ButtonStyles.xaml" />
                 <ResourceDictionary Source="/Styles/SliderStyles.xaml" />
+				<ResourceDictionary Source="/Styles/ToggleButtonStyles.xaml"/>
+			
             </ResourceDictionary.MergedDictionaries>
+
+            <converters:BoolToVisibilityConverter x:Key = "BoolToVisibilityConverter" />
 
             <SolidColorBrush x:Key="MahApps.Brushes.Button.Flat.Background.MouseOver" Color="#d8d8d8" />
 
 
-            <player:OrderModeToIconPathConverter x:Key="OrderModeToIconPathConverter" />
+            <player:LoopModeToIconPathConverter x:Key="LoopModeToIconPathConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

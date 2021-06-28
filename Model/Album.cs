@@ -47,7 +47,7 @@ namespace PPMusic.Model
         /// <summary>
         /// 歌曲列表
         /// </summary>
-        public ObservableCollection<Song> Songs { get; } = new();
+        public ObservableCollection<Song> Songs { get; set; } = new();
 
         /// <summary>
         /// 描述

@@ -1,4 +1,187 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle
+                        Margin="2"
+                        SnapsToDevicePixels="true"
+                        Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                        StrokeDashArray="1 2"
+                        StrokeThickness="1" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  透明背景开关按钮(默认背景非完全透明,防止无法捕获点击事件  -->
+    <Style x:Key="TransparentToggleButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Background" Value="#01FFFFFF" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border
+                        x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        SnapsToDevicePixels="true">
+                        <ContentPresenter
+                            x:Name="contentPresenter"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Focusable="False"
+                            RecognizesAccessKey="True"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  音量调节面板弹出开关样式  -->
+    <Style
+        x:Key="VolumeToggleButtonStyle"
+        BasedOn="{StaticResource TransparentToggleButtonStyle}"
+        TargetType="ToggleButton">
+
+        <Setter Property="Foreground" Value="Black" />
+
+        <Setter Property="ToolTip" Value="音量" />
+
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Margin="0,0,0,0"
+                        Data="M444.45 400H250A50 50 0 0 0 200 450V750A50 50 0 0 0 250 800H444.45L709.15 1016.6A25 25 0 0 0 750 997.25V202.75A25 25 0 0 0 709.15 183.4L444.5 400zM943.15 370.45L872.05 441.55A199.64999999999998 199.64999999999998 0 0 1 950 600C950 671.5 912.5 734.25 856 769.5999999999999L927.95 841.55A299.54999999999995 299.54999999999995 0 0 0 1050 600C1050 507.9 1008.5000000000002 425.5 943.15 370.45z"
+                        Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"
+                        Stretch="Uniform" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+            </Trigger>
+
+            <!--  按下时,像右下偏移1个像素  -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TranslateTransform X="1" Y="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  静音按钮  -->
+    <Style
+        x:Key="MuteToggleButtonStyle"
+        BasedOn="{StaticResource TransparentToggleButtonStyle}"
+        TargetType="ToggleButton">
+
+        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
+
+        <Setter Property="ToolTip" Value="静音" />
+
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Margin="0,0,0,0"
+                        Data="M444.45 400H250A50 50 0 0 0 200 450V750A50 50 0 0 0 250 800H444.45L709.15 1016.6A25 25 0 0 0 750 997.25V202.75A25 25 0 0 0 709.15 183.4L444.5 400zM943.15 370.45L872.05 441.55A199.64999999999998 199.64999999999998 0 0 1 950 600C950 671.5 912.5 734.25 856 769.5999999999999L927.95 841.55A299.54999999999995 299.54999999999995 0 0 0 1050 600C1050 507.9 1008.5000000000002 425.5 943.15 370.45z"
+                        Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"
+                        Stretch="Uniform" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+            </Trigger>
+
+            <!--  按下时,像右下偏移1个像素  -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TranslateTransform X="1" Y="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <!--  勾选时,变换图标为画×的喇叭  -->
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Path
+                                Height="16"
+                                Margin="0,0,0,0"
+                                Data="M509.15,838.867l-264.7-216.6H50a50,50,0,0,1-50-50v-300a50,50,0,0,1,50-50H244.5L509.15,5.667A25,25,0,0,1,550,25.017v794.5a25,25,0,0,1-40.85,19.35ZM757.1,455.847,618.581,594.367,585,560.786,723.52,422.267,585,283.747l33.581-33.581L757.1,388.687l138.52-138.52L929.2,283.747l-138.52,138.52L929.2,560.786,895.62,594.367Z"
+                                Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"
+                                Stretch="Uniform" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!--  循环模式面板弹出开关样式  -->
+    <Style
+        x:Key="PlayerLoopModeToggleButtonButtonStyle"
+        BasedOn="{StaticResource TransparentToggleButtonStyle}"
+        TargetType="ToggleButton">
+
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Path
+                        Width="16"
+                        Height="16"
+                        Margin="0,0,0,0"
+                        Data="{Binding}"
+                        Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"
+                        Stretch="Uniform" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+            </Trigger>
+
+            <!--  按下时,像右下偏移1个像素  -->
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <TranslateTransform X="1" Y="1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

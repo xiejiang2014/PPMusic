@@ -6,6 +6,7 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:PPMusic.Model"
+    xmlns:ppMusic = "clr-namespace:PPMusic"
     d:DataContext="{d:DesignInstance model:Album}"
     mc:Ignorable="d">
 
@@ -46,6 +47,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Opacity="0"
+                Command="{x:Static ppMusic:Commands.PlayAlbumCommand}"
+                CommandParameter="{Binding}"
                 Style="{StaticResource TilePlayButtonStyle}">
             </Button>
 
