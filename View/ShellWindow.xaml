@@ -26,7 +26,7 @@
 
 
     <behaviors:Interaction.Triggers>
-        <behaviors:EventTrigger EventName="Loaded" SourceObject="{Binding ThisMetroWindow}">
+        <behaviors:EventTrigger EventName="Loaded" SourceObject="{Binding ElementName=ThisMetroWindow}">
             <behaviors:InvokeCommandAction Command="{Binding LoadedCommand}" />
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
