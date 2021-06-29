@@ -152,7 +152,7 @@
                     x:Name="TrackBackground"
                     Height="12"
                     VerticalAlignment="center"
-                    Background="White"
+                    Background="Transparent"
                     BorderThickness="0"
                     CornerRadius="6">
                     <Canvas Margin="-6,-1">

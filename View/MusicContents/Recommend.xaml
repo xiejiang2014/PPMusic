@@ -8,7 +8,7 @@
     xmlns:model="clr-namespace:PPMusic.Model"
     xmlns:musicContents="clr-namespace:PPMusic.ViewModel.MusicContents"
     xmlns:tile="clr-namespace:PPMusic.View.Tile"
-    Padding="20"
+    Padding="20,20,0,8"
     d:DataContext="{d:DesignInstance musicContents:RecommendViewModel}"
     d:DesignHeight="450"
     d:DesignWidth="800"
@@ -17,7 +17,7 @@
     <ScrollViewer>
         <StackPanel>
             <TextBlock
-                Margin="0,21"
+                Margin="0,21,0,21"
                 FontSize="32"
                 FontWeight="Bold">
                 推荐

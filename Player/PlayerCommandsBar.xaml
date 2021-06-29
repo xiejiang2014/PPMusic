@@ -17,11 +17,14 @@
 
         <!--  贴顶的进度条  -->
         <Slider Height = "10"
+                IsMoveToPointEnabled = "True"
+                Maximum = "{Binding ElementName=ThisPlayerCommandsBar, Path=WaveDirectSoundPlayer.TotalTime,Mode=OneWay,Converter={StaticResource TimeSpanToMsConverter} }"
+                Value = "{Binding ElementName=ThisPlayerCommandsBar, Path=WaveDirectSoundPlayer.CurrentTime ,Mode=TwoWay,Converter={StaticResource TimeSpanToMsConverter}}"
                 Style = "{StaticResource PlayerProgressSliderStyle}" />
 
         <Grid Grid.Row = "1"
               Margin = "0,15,0,20"
-              ShowGridLines = "True" >
+              ShowGridLines = "False" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width = "*" />
                 <ColumnDefinition Width = "*" />
@@ -29,7 +32,7 @@
             </Grid.ColumnDefinitions>
 
             <!--  靠左的专辑/歌曲信息  -->
-            <Grid ShowGridLines = "True" >
+            <Grid ShowGridLines = "False" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width = "Auto" />
                     <ColumnDefinition Width = "*" />
@@ -91,10 +94,10 @@
                         Orientation = "Horizontal" >
 
                 <!--  循环方式  -->
-                <ToggleButton
-                    x:Name = "LoopModesToggleButton"
-                    Content = "{Binding ElementName=ThisPlayerCommandsBar, Path=LoopMode, Converter={StaticResource LoopModeToIconPathConverter}}"
-                    Style = "{StaticResource PlayerLoopModeToggleButtonButtonStyle}" />
+                <ToggleButton Margin = "5,0"
+                              x:Name = "LoopModesToggleButton"
+                              Content = "{Binding ElementName=ThisPlayerCommandsBar, Path=LoopMode, Converter={StaticResource LoopModeToIconPathConverter}}"
+                              Style = "{StaticResource PlayerLoopModeToggleButtonButtonStyle}" />
 
                 <!--  循环方式调节弹出  -->
                 <Popup AllowsTransparency = "True"
@@ -114,7 +117,9 @@
 
 
                 <!--  上一首  -->
-                <Button HorizontalAlignment = "Center"
+                <Button Margin = "5,0"
+                        HorizontalAlignment = "Center"
+                        Command = "{Binding ElementName=ThisPlayerCommandsBar, Path=PlayPreviousSongCommand}"
                         Style = "{StaticResource PlayerBackButtonStyle}" />
 
                 <!--  播放和暂停  -->
@@ -131,11 +136,14 @@
                 </Grid>
 
                 <!--  下一首  -->
-                <Button HorizontalAlignment = "Center"
+                <Button Margin = "5,0"
+                        HorizontalAlignment = "Center"
+                        Command = "{Binding ElementName=ThisPlayerCommandsBar, Path=PlayNextSongCommand}"
                         Style = "{StaticResource PlayerForwardButtonStyle}" />
 
                 <!--  音量  -->
-                <ToggleButton x:Name = "VolumeToggleButton"
+                <ToggleButton Margin = "5,0"
+                              x:Name = "VolumeToggleButton"
                               HorizontalAlignment = "Center" >
 
                     <ToggleButton.Style>
@@ -163,10 +171,7 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-
                     </ToggleButton.Style>
-
-
                 </ToggleButton>
 
 
@@ -190,7 +195,31 @@
 
             <!--  靠右的时间显示 歌词按钮等  -->
             <StackPanel Grid.Column = "2"
-                        Orientation = "Horizontal" />
+                        HorizontalAlignment = "Right"
+                        VerticalAlignment = "Center"
+                        Orientation = "Horizontal" >
+
+                <TextBlock FontSize = "12"
+                           VerticalAlignment = "Center"
+                           Foreground = "Black"
+                           Text = "{Binding ElementName=ThisPlayerCommandsBar, Path=WaveDirectSoundPlayer.CurrentTime ,Mode=OneWay,StringFormat={}{0:mm}:{0:ss}}" />
+
+                <TextBlock Margin = "4,0"
+                           FontSize = "12"
+                           Foreground = "Black"
+                           VerticalAlignment = "Center"
+                           Text = "/" />
+
+                <TextBlock FontSize = "12"
+                           VerticalAlignment = "Center"
+                           Foreground = "Black"
+                           Text = "{Binding ElementName=ThisPlayerCommandsBar, Path=WaveDirectSoundPlayer.TotalTime ,Mode=OneWay,StringFormat={}{0:mm}:{0:ss}}" />
+
+                <Button Content = "词"
+                        Margin = "6,0"
+                        VerticalAlignment = "Center"
+                        Style = "{StaticResource BlackForeMouseOverAccentButtonStyle}" />
+            </StackPanel>
         </Grid>
     </Grid>
 

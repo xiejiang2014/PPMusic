@@ -1,92 +1,123 @@
-﻿<mah:MetroWindow
-    x:Class="PPMusic.View.ShellWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:player="clr-namespace:PPMusic.Player"
-    xmlns:regions="http://prismlibrary.com/"
-    xmlns:viewModel="clr-namespace:PPMusic.ViewModel"
-    x:Name="ThisMetroWindow"
-    Title="MainWindow"
-    Width="800"
-    Height="450"
-    MinWidth="1006"
-    MinHeight="676"
-    d:DataContext="{d:DesignInstance viewModel:ShellWindowViewModel}"
-    Background="White"
-    BorderThickness="0"
-    NonActiveWindowTitleBrush="White"
-    TitleBarHeight="50"
-    WindowStartupLocation="CenterScreen"
-    WindowTitleBrush="White"
-    mc:Ignorable="d">
+﻿<mah:MetroWindow x:Class = "PPMusic.View.ShellWindow"
+                 xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:behaviors = "http://schemas.microsoft.com/xaml/behaviors"
+                 xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mah = "http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:player = "clr-namespace:PPMusic.Player"
+                 xmlns:regions = "http://prismlibrary.com/"
+                 xmlns:viewModel = "clr-namespace:PPMusic.ViewModel"
+                 xmlns:ppMusic = "clr-namespace:PPMusic"
+                 x:Name = "ThisMetroWindow"
+                 Title = "MainWindow"
+                 Width = "800"
+                 Height = "450"
+                 MinWidth = "1006"
+                 MinHeight = "676"
+                 d:DataContext = "{d:DesignInstance viewModel:ShellWindowViewModel}"
+                 Background = "#f6f6f6"
+                 BorderThickness = "0"
+                 NonActiveWindowTitleBrush = "White"
+                 TitleBarHeight = "50"
+                 WindowStartupLocation = "CenterScreen"
+                 WindowTitleBrush = "#f6f6f6"
+                 mc:Ignorable = "d" >
 
 
     <behaviors:Interaction.Triggers>
-        <behaviors:EventTrigger EventName="Loaded" SourceObject="{Binding ElementName=ThisMetroWindow}">
-            <behaviors:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        <behaviors:EventTrigger EventName = "Loaded"
+                                SourceObject = "{Binding ElementName=ThisMetroWindow}" >
+            <behaviors:InvokeCommandAction
+                Command = "{Binding LoadedCommand}" />
         </behaviors:EventTrigger>
     </behaviors:Interaction.Triggers>
 
 
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
-            <Border Background="White" IsHitTestVisible="False">
-                <Rectangle
-                    Width="210"
-                    HorizontalAlignment="Left"
-                    Fill="#f0f0f0" />
+            <Border Background = "#f6f6f6"
+                    IsHitTestVisible = "False" >
+                <Rectangle Width = "210"
+                           HorizontalAlignment = "Left"
+                           Fill = "#f0f0f0" />
             </Border>
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
 
-    <Grid>
+    <Grid Margin = "0,-35,0,0" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width = "Auto" />
+            <ColumnDefinition Width = "*" />
         </Grid.ColumnDefinitions>
 
         <!--  左侧的菜单区  -->
-        <Grid Background="#f0f0f0">
+        <Grid Background = "#f0f0f0" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height = "Auto" />
+                <RowDefinition Height = "*" />
             </Grid.RowDefinitions>
 
-            <Image
-                Margin="0,0,0,35"
-                Source="../Resources/Images/Logo.png"
-                Stretch="None" />
+            <Image Margin = "0,0,0,35"
+                   Source = "../Resources/Images/Logo.png"
+                   Stretch = "None" />
 
-
-            <ContentControl
-                Grid.Row="1"
-                d:DesignHeight="450"
-                d:DesignWidth="210"
-                regions:RegionManager.RegionName="MenuRegion" />
+            <ContentControl Grid.Row = "1"
+                            d:DesignHeight = "450"
+                            d:DesignWidth = "210"
+                            regions:RegionManager.RegionName = "MenuRegion" />
         </Grid>
 
         <!--  右侧的主内容区  -->
-        <Grid Grid.Column="1">
+        <Grid Grid.Column = "1" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height = "Auto" />
+                <RowDefinition Height = "*" />
+                <RowDefinition Height = "Auto" />
             </Grid.RowDefinitions>
 
             <!--  搜索区  -->
+            <StackPanel Margin = "20,0,3,0"
+                        Orientation = "Horizontal" >
+                <Button Margin = "0,0,20,0"
+                        Style = "{StaticResource GrayForeMouseOverAccentButtonStyle}" >
+                    <Path Width = "12"
+                          Height = "12"
+                          Margin = "0,0,0,0"
+                          Data = "M12.77325 -0.72675A0.5625 0.5625 0 0 0 12.77325 -1.52325L6.420375 -7.875L12.77325 -14.22675A0.5625 0.5625 0 0 0 11.97675 -15.02325L5.22675 -8.27325A0.5625 0.5625 0 0 0 5.22675 -7.47675L11.97675 -0.72675A0.5625 0.5625 0 0 0 12.77325 -0.72675z"
+                          Fill = "{Binding RelativeSource={RelativeSource  Mode=FindAncestor,AncestorType=Button},Path=Foreground}"
+                          Stretch = "Uniform" />
+                </Button>
+
+                <Button
+                    Style = "{StaticResource GrayForeMouseOverAccentButtonStyle}" >
+                    <Path Width = "12"
+                          Height = "12"
+                          Margin = "0,0,20,0"
+                          Data = "M5.22675 -0.72675A0.5625 0.5625 0 0 0 6.02325 -0.72675L12.77325 -7.47675A0.5625 0.5625 0 0 0 12.77325 -8.27325L6.02325 -15.02325A0.5625 0.5625 0 0 0 5.22675 -14.22675L11.579625 -7.875L5.22675 -1.52325A0.5625 0.5625 0 0 0 5.22675 -0.72675z"
+                          Fill = "{Binding RelativeSource={RelativeSource  Mode=FindAncestor,AncestorType=Button},Path=Foreground}"
+                          Stretch = "Uniform" />
+                </Button>
+
+
+                <TextBox BorderThickness = "0"
+                         Background = "{StaticResource MahApps.Brushes.Gray9}"
+                         VerticalContentAlignment = "Center"
+                         Style = "{StaticResource SearchingTextBoxStyle}"
+                         mah:ControlsHelper.CornerRadius = "17"
+                         mah:TextBoxHelper.Watermark = "搜索音乐"
+                         Height = "34"
+                         ppMusic:TextBoxAttached.WaterMarkIcon = "M7.5256347375 1.122802734375A7.312499999999999 7.312499999999999 0 0 1 0 -6.1875A7.312499999999999 7.312499999999999 0 0 1 11.6323245 -12.076171875A1.125 1.125 0 0 1 11.748778875 -12.21459975L16.079590125 -16.545409875A1.125227925 1.125227925 0 0 1 17.670409875 -14.954590125L13.33959975 -10.62158175A1.125 1.125 0 0 1 13.203369 -10.5073245A7.312499999999999 7.312499999999999 0 0 1 14.625 -6.1875A7.312499999999999 7.312499999999999 0 0 1 7.5256347375 1.122802734375zM7.3125 0A6.187500000000002 6.187500000000002 0 0 0 7.3125 -12.375A6.187500000000002 6.187500000000002 0 0 0 7.3125 0z"
+                         Width = "300" />
+            </StackPanel>
 
             <!--  主内容区  -->
-            <mah:TransitioningContentControl
-                Grid.Row="1"
-                regions:RegionManager.RegionName="MainRegion"
-                Transition="Left" />
+            <mah:TransitioningContentControl Grid.Row = "1"
+                regions:RegionManager.RegionName = "MainRegion"
+                Transition = "Left" />
 
             <!--  底部的播放控制区  -->
-            <player:PlayerCommandsBar Grid.Row="2" />
+            <player:PlayerCommandsBar Grid.Row = "2" />
 
         </Grid>
     </Grid>

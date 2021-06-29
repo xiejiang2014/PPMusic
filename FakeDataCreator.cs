@@ -91,7 +91,7 @@ namespace PPMusic
         /// 创建专辑组
         /// </summary>
         /// <returns></returns>
-        public AlbumsGroup CreateAlbumGroup(int albumAmount)
+        public static AlbumsGroup CreateAlbumGroup(int albumAmount)
         {
             var result = new AlbumsGroup();
 
@@ -120,7 +120,7 @@ namespace PPMusic
         /// 创建的专辑
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Album> CreateAlbums()
+        public static IEnumerable<Album> CreateAlbums()
         {
             yield return new Album()
                          {
@@ -320,7 +320,7 @@ namespace PPMusic
         }
 
 
-        public IEnumerable<Song> GetRandomSongs(int count)
+        public static IEnumerable<Song> GetRandomSongs(int count)
         {
             return GetRandomWaveFiles(count).Select(v => new Song()
                                                          {
@@ -334,7 +334,7 @@ namespace PPMusic
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public IEnumerable<string> GetRandomWaveFiles(int count)
+        public static IEnumerable<string> GetRandomWaveFiles(int count)
         {
             var dirInfo = new DirectoryInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory,
                                                          "Resources\\mp3")
@@ -345,7 +345,7 @@ namespace PPMusic
 
             for (var i = 0; i < count; i++)
             {
-                var index = random.Next(0, mp3Files.Length );
+                var index = random.Next(0, mp3Files.Length);
 
                 yield return mp3Files[index].FullName;
             }

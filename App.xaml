@@ -1,33 +1,49 @@
-﻿<unity:PrismApplication
-    x:Class="PPMusic.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:PPMusic"
-    xmlns:player="clr-namespace:PPMusic.Player"
-    xmlns:unity="http://prismlibrary.com/"
-    xmlns:converters = "clr-namespace:PPMusic.Converters" >
+﻿<unity:PrismApplication x:Class = "PPMusic.App"
+                        xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:local = "clr-namespace:PPMusic"
+                        xmlns:player = "clr-namespace:PPMusic.Player"
+                        xmlns:unity = "http://prismlibrary.com/"
+                        xmlns:converters = "clr-namespace:PPMusic.Converters" >
 
     <Application.Resources>
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/light.sienna.xaml" />
-                <ResourceDictionary Source="/Styles/RadioButtonStyles.xaml" />
-                <ResourceDictionary Source="/Styles/ListViewStyles.xaml" />
-                <ResourceDictionary Source="/Styles/ButtonStyles.xaml" />
-                <ResourceDictionary Source="/Styles/SliderStyles.xaml" />
-				<ResourceDictionary Source="/Styles/ToggleButtonStyles.xaml"/>
-			
+                <ResourceDictionary
+                    Source = "pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary
+                    Source = "pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary
+                    Source = "pack://application:,,,/MahApps.Metro;component/Styles/Themes/light.sienna.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/RadioButtonStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/ListViewStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/ButtonStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/SliderStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/ToggleButtonStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/ScrollBarStyles.xaml" />
+                <ResourceDictionary
+                    Source = "/Styles/TextBoxStyles.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
-            <converters:BoolToVisibilityConverter x:Key = "BoolToVisibilityConverter" />
+            <converters:BoolToVisibilityConverter
+                x:Key = "BoolToVisibilityConverter" />
+            <player:LoopModeToIconPathConverter
+                x:Key = "LoopModeToIconPathConverter" />
+            <player:TimeSpanToMsConverter
+                x:Key = "TimeSpanToMsConverter" />
 
-            <SolidColorBrush x:Key="MahApps.Brushes.Button.Flat.Background.MouseOver" Color="#d8d8d8" />
+            <SolidColorBrush
+                x:Key = "MahApps.Brushes.Button.Flat.Background.MouseOver"
+                Color = "#d8d8d8" />
 
-
-            <player:LoopModeToIconPathConverter x:Key="LoopModeToIconPathConverter" />
 
         </ResourceDictionary>
     </Application.Resources>

@@ -393,6 +393,8 @@ namespace PPMusic.Player
             DirectSoundOut.Init(AudioFileReader);
 
             DirectSoundOut.PlaybackStopped += OnPlaybackStopped;
+
+
         }
 
         #endregion
@@ -480,11 +482,6 @@ namespace PPMusic.Player
                                        StoppedEventArgs e
         )
         {
-            //只有在播放完全部的音频时才触发 PlayComplete
-            if (AudioFileReader.Length == AudioFileReader.Position)
-            {
-                PlayComplete?.Invoke(this, EventArgs.Empty);
-            }
 
 
             _timer.Stop();
@@ -492,6 +489,12 @@ namespace PPMusic.Player
             PlayStatusChanged?.Invoke(this, EventArgs.Empty);
 
             FreeDirectSoundOut();
+
+            //只有在播放完全部的音频时才触发 PlayComplete
+            if (AudioFileReader.Length == AudioFileReader.Position)
+            {
+                PlayComplete?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         #endregion

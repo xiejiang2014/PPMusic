@@ -86,7 +86,7 @@
             HorizontalAlignment="Left"
             Content="{Binding Path=Title}"
             Cursor="Hand"
-            Style="{StaticResource TileTitleButtonStyle}" />
+            Style="{StaticResource BlackForeMouseOverAccentButtonStyle}" />
     </Grid>
 
     <UserControl.Triggers>

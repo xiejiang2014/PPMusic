@@ -50,9 +50,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <!--<Trigger Property="IsPressed" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
-            </Trigger>-->
             <Trigger Property = "IsEnabled"
                      Value = "False" >
                 <Setter Property = "Foreground"
@@ -61,9 +58,24 @@
         </Style.Triggers>
     </Style>
 
+
+    <!-- 鼠标悬停时 前景色会变为 Accent 的样式 -->
+    <Style x:Key = "MouseOverAccentButtonStyle" BasedOn="{StaticResource TransparentBackgroundButtonStyle}"
+           TargetType = "{x:Type ButtonBase}" >
+
+        <Setter Property = "Padding"
+                Value = "0" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+            </Trigger>
+         </Style.Triggers>
+    </Style>
+
+
     <!--  专辑磁贴中播放按钮的样式  -->
     <Style x:Key = "TilePlayButtonStyle"
-           BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
+           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
            TargetType = "ButtonBase" >
         <Style.Setters>
             <Setter Property = "Foreground"
@@ -81,37 +93,27 @@
                 </Setter.Value>
             </Setter>
         </Style.Setters>
-        <Style.Triggers>
-            <Trigger Property = "IsMouseOver"
-                     Value = "True" >
-                <Trigger.Setters>
-                    <Setter Property = "Foreground"
-                            Value = "{DynamicResource MahApps.Brushes.Accent}" />
-                </Trigger.Setters>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
+     </Style>
 
-    <!--  专辑标题按钮样式  -->
-    <Style x:Key = "TileTitleButtonStyle"
-           BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
+    <!--  专辑标题按钮样式 黑字  -->
+    <Style x:Key = "BlackForeMouseOverAccentButtonStyle"
+           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
            TargetType = "ButtonBase" >
         <Style.Setters>
             <Setter Property = "Foreground"
                     Value = "Black" />
-            <Setter Property = "Padding"
-                    Value = "0" />
         </Style.Setters>
-        <Style.Triggers>
-            <Trigger Property = "IsMouseOver"
-                     Value = "True" >
-                <Trigger.Setters>
-                    <Setter Property = "Foreground"
-                            Value = "{DynamicResource MahApps.Brushes.Accent}" />
-                </Trigger.Setters>
-            </Trigger>
-        </Style.Triggers>
     </Style>
+
+    <Style x:Key = "GrayForeMouseOverAccentButtonStyle"
+           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
+           TargetType = "ButtonBase" >
+        <Style.Setters>
+            <Setter Property = "Foreground"
+                    Value = "{StaticResource MahApps.Brushes.Gray5}" />
+        </Style.Setters>
+    </Style>
+
 
 
     <!--  底部播放按钮的样式  -->
@@ -119,8 +121,6 @@
            BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
            TargetType = "ButtonBase" >
         <Style.Setters>
-            <Setter Property = "Cursor"
-                    Value = "Hand" />
             <Setter Property = "Foreground"
                     Value = "{DynamicResource MahApps.Brushes.Accent}" />
             <Setter Property = "ContentTemplate" >
@@ -165,7 +165,7 @@
 
     <!--  底部16*16按钮的样式  -->
     <Style x:Key = "PlayerSmallButtonStyle"
-           BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
+           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
            TargetType = "ButtonBase" >
 
         <Setter Property = "Foreground"
@@ -176,12 +176,6 @@
 
 
         <Style.Triggers>
-            <Trigger Property = "IsMouseOver"
-                     Value = "True" >
-                <Setter Property = "Foreground"
-                        Value = "{DynamicResource MahApps.Brushes.Accent}" />
-            </Trigger>
-
             <!--  按下时,像右下偏移1个像素  -->
             <Trigger Property = "IsPressed"
                      Value = "True" >

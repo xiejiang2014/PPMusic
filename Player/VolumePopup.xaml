@@ -58,6 +58,7 @@
                     <Slider Height = "127"
                             Margin = "0,7"
                             Maximum = "1"
+                            IsMoveToPointEnabled = "True"
                             SmallChange = "0.01"
                             LargeChange = "0.05"
                             Value = "{Binding Volume,Mode=TwoWay}"
