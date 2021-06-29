@@ -3,6 +3,7 @@
 
 当前处于开发早期阶段
 
+
 代码使用 MIT 协议开源
 
 界面布局设计模仿QQ音乐.
@@ -11,6 +12,7 @@
 
 
 使用的 Nuget 包有:
+
 MahApps.Metro
 
 MahApps.Metro.IconPacks
@@ -25,5 +27,6 @@ PropertyChanged.Fody
 
 Refractored.MvvmHelpers
 
+预览图:
 ![image](https://github.com/xiejiang2014/PPMusic/blob/main/Gallery/1.png)
 
