@@ -1,40 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using JetBrains.Annotations;
 using MoreLinq;
+using MvvmHelpers;
 using PPMusic.Model;
+using PPMusic.Player;
 using PPMusic.Player.Enum;
 using Prism.Commands;
+using PropertyChanged;
 
-namespace PPMusic.Player
+namespace PPMusic.ViewModel.PlayerCommandsBar
 {
-    /// <summary>
-    /// PlayerCommandsBar.xaml 的交互逻辑
-    /// </summary>
-    public partial class PlayerCommandsBar : INotifyPropertyChanged
+    public class PlayerCommandsBarViewModel:BaseViewModel
     {
+
         #region 播放核心
 
         public WaveDirectSoundPlayer WaveDirectSoundPlayer { get; } = new();
 
         #endregion
-
-
-        public PlayerCommandsBar()
+        
+        public PlayerCommandsBarViewModel()
         {
-            InitializeComponent();
-
+            WaveDirectSoundPlayer.PlayComplete += WaveDirectSoundPlayer_PlayComplete;
+            
             Commands.PlayAlbumCommand = new DelegateCommand<Album>(PlayAlbum);
             Commands.LoadAlbumCommand = new DelegateCommand<Album>(LoadAlbum);
 
-            WaveDirectSoundPlayer.PlayComplete += WaveDirectSoundPlayer_PlayComplete;
+            //随便加载一个专辑
+            Commands.LoadAlbumCommand.Execute(FakeDataCreator.CreateAlbums().FirstOrDefault());
+
         }
-
-
+        
         #region 专辑/歌曲的加载和播放
 
         private void PlayAlbum(Album album)
@@ -63,7 +62,7 @@ namespace PPMusic.Player
             set
             {
                 _album = value;
-                Song   = _album.Songs.FirstOrDefault();
+                Song = _album.Songs.FirstOrDefault();
             }
         }
 
@@ -73,19 +72,21 @@ namespace PPMusic.Player
         /// <summary>
         /// 歌曲
         /// </summary>
+        [DoNotCheckEquality]
         public Song Song
         {
             get => _song;
             set
             {
-                _song                           = value;
+                _song = value;
+                WaveDirectSoundPlayer.Stop();
+                Debug.Print($" song 更改, 已要求 WaveDirectSoundPlayer.Stop  PlayStatus = {WaveDirectSoundPlayer.PlayStatus}");
                 WaveDirectSoundPlayer.AudioFile = "";
                 WaveDirectSoundPlayer.AudioFile = _song?.AudioFile ?? "";
             }
         }
 
         #endregion
-
 
         #region 播放命令
 
@@ -118,22 +119,6 @@ namespace PPMusic.Player
         #endregion
 
 
-        #region 静音命令
-
-        private ICommand _muteCommand;
-
-        public ICommand MuteCommand =>
-            _muteCommand ??=
-                new DelegateCommand(Pause).ObservesCanExecute(() => WaveDirectSoundPlayer.CanPause);
-
-        private void Mute()
-        {
-            WaveDirectSoundPlayer.IsMute = true;
-        }
-
-        #endregion
-
-
         #region 循环模式
 
         private DelegateCommand<LoopModes?> _setLoopModeCommand;
@@ -154,14 +139,14 @@ namespace PPMusic.Player
         public string LoopModeName =>
             LoopMode switch
             {
-                LoopModes.InOrder    => "顺序播放",
-                LoopModes.LoopList   => "列表循环",
-                LoopModes.Random     => "随机播放",
+                LoopModes.InOrder => "顺序播放",
+                LoopModes.LoopList => "列表循环",
+                LoopModes.Random => "随机播放",
                 LoopModes.LoopSingle => "单曲循环",
-                _                    => throw new ArgumentOutOfRangeException()
+                _ => throw new ArgumentOutOfRangeException()
             };
 
-        public  LoopModes LoopMode { get; set; } = LoopModes.Random;
+        public LoopModes LoopMode { get; set; } = LoopModes.Random;
 
         #endregion
 
@@ -172,7 +157,7 @@ namespace PPMusic.Player
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WaveDirectSoundPlayer_PlayComplete(object    sender,
+        private void WaveDirectSoundPlayer_PlayComplete(object sender,
                                                         EventArgs e
         )
         {
@@ -216,7 +201,7 @@ namespace PPMusic.Player
             if (CurrentHistoryNode?.Previous is not null)
             {
                 Album = CurrentHistoryNode.Previous.Value.Album;
-                Song  = CurrentHistoryNode.Previous.Value.Song;
+                Song = CurrentHistoryNode.Previous.Value.Song;
 
                 if (WaveDirectSoundPlayer.CanPlay)
                 {
@@ -237,7 +222,7 @@ namespace PPMusic.Player
             if (CurrentHistoryNode?.Next is not null)
             {
                 Album = CurrentHistoryNode.Next.Value.Album;
-                Song  = CurrentHistoryNode.Next.Value.Song;
+                Song = CurrentHistoryNode.Next.Value.Song;
 
                 if (WaveDirectSoundPlayer.CanPlay)
                 {
@@ -326,19 +311,6 @@ namespace PPMusic.Player
             {
                 throw new InvalidOperationException("尚未加载音频,当前无法播放.");
             }
-        }
-
-        #endregion
-
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         #endregion

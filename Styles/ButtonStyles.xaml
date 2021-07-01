@@ -143,8 +143,6 @@
            BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
            TargetType = "ButtonBase" >
         <Style.Setters>
-            <Setter Property = "Cursor"
-                    Value = "Hand" />
             <Setter Property = "Foreground"
                     Value = "{DynamicResource MahApps.Brushes.Accent}" />
             <Setter Property = "ContentTemplate" >
@@ -170,9 +168,6 @@
 
         <Setter Property = "Foreground"
                 Value = "Black" />
-
-        <Setter Property = "Padding"
-                Value = "0" />
 
 
         <Style.Triggers>

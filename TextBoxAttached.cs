@@ -24,7 +24,7 @@ namespace PPMusic
         [AttachedPropertyBrowsableForType(typeof(TextBox))]
         public static object GetWaterMarkIcon(DependencyObject element)
         {
-            return (object) element.GetValue(WaterMarkIconProperty);
+            return element.GetValue(WaterMarkIconProperty);
         }
     }
 }

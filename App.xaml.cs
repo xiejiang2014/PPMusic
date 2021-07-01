@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using ControlzEx.Theming;
 using PPMusic.View;
+using PPMusic.View.MainContentPages;
 using PPMusic.View.Menu;
-using PPMusic.View.MusicContents;
+using PPMusic.View.TitleBar;
 using PPMusic.ViewModel;
+using PPMusic.ViewModel.MainContentPages;
 using PPMusic.ViewModel.Menu;
-using PPMusic.ViewModel.MusicContents;
+using PPMusic.ViewModel.PlayerCommandsBar;
+using PPMusic.ViewModel.TitleBar;
 using Prism.Ioc;
 using Prism.Mvvm;
 
@@ -51,8 +48,10 @@ namespace PPMusic
             //注册假数据创建器
             containerRegistry.RegisterSingleton<FakeDataCreator>();
 
+            //注册播放控制栏视图模型的单例,由于会出现多个播放控制栏 共享一个视图模型的情况,所以将其设为单例
+            containerRegistry.RegisterSingleton<PlayerCommandsBarViewModel>();
+
             //注册导航
-            containerRegistry.RegisterForNavigation<Menus>(navigationCatalog.MenuRegion);
             containerRegistry.RegisterForNavigation<Recommend>(navigationCatalog.Recommend);
             containerRegistry.RegisterForNavigation<MusicHall>(navigationCatalog.MusicHall);
         }
@@ -62,7 +61,10 @@ namespace PPMusic
             base.ConfigureViewModelLocator();
 
             ViewModelLocationProvider.Register<ShellWindow, ShellWindowViewModel>();
+
             ViewModelLocationProvider.Register<Menus, MenusViewModel>();
+            ViewModelLocationProvider.Register<TitleBar, TitleBarViewModel>();
+
             ViewModelLocationProvider.Register<Recommend, RecommendViewModel>();
             ViewModelLocationProvider.Register<MusicHall, MusicHallViewModel>();
         }

@@ -4,10 +4,10 @@
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:player = "clr-namespace:PPMusic.Player"
     xmlns:enum = "clr-namespace:PPMusic.Player.Enum"
+    xmlns:playerCommandsBar = "clr-namespace:PPMusic.ViewModel.PlayerCommandsBar"
     Background = "Transparent"
-    d:DataContext = "{d:DesignInstance player:PlayerCommandsBar}"
+    d:DataContext = "{d:DesignInstance playerCommandsBar:PlayerCommandsBarViewModel}"
     mc:Ignorable = "d" >
 
     <Grid VerticalAlignment = "Center"

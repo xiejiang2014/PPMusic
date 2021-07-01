@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 using ControlzEx.Theming;
 using MvvmHelpers;
 using PPMusic.View.Menu;
+using PPMusic.ViewModel.Menu;
 using Prism.Commands;
 using Prism.Regions;
 using Unity;
@@ -15,9 +14,6 @@ namespace PPMusic.ViewModel
         private readonly IRegionManager    _regionManager;
         private readonly NavigationCatalog _navigationCatalog;
 
-        private ICommand _loadedCommand;
-        public  ICommand LoadedCommand => _loadedCommand ??= new DelegateCommand(Loaded);
-
 
         [InjectionConstructor]
         public ShellWindowViewModel(IRegionManager    regionManager,
@@ -27,27 +23,42 @@ namespace PPMusic.ViewModel
             ThemeManager.Current.ChangeThemeColorScheme(Application.Current, "PPGreenBlue");
             _regionManager     = regionManager;
             _navigationCatalog = navigationCatalog;
-            regionManager.RegisterViewWithRegion(navigationCatalog.MenuRegion, typeof(Menus));
 
-            Commands.MainRegionNavigationCommand = new DelegateCommand<string>(MainRegionNavigation);
+            Commands.MainRegionNavigationCommand = new DelegateCommand<MenuItemViewModel>(MainRegionNavigation);
+
+            Commands.ShowPlayingSongCommand = new DelegateCommand(ShowPlayingSong);
+
+
+            regionManager.RegisterViewWithRegion(navigationCatalog.MenuRegion,              typeof(Menus));
+            regionManager.RegisterViewWithRegion(navigationCatalog.TitleRegion,             typeof(View.TitleBar.TitleBar));
+            regionManager.RegisterViewWithRegion(navigationCatalog.PlayerCommandsBarRegion, typeof(View.PlayerCommandsBar.PlayerCommandsBar));
+
         }
 
-        private void Loaded()
+
+
+
+        private void MainRegionNavigation(MenuItemViewModel menuItemViewModel)
         {
-            //默认导航到推荐页
-            Commands.MainRegionNavigationCommand.Execute(_navigationCatalog.Recommend);
-
-            //随便加载一个专辑
-            Commands.LoadAlbumCommand.Execute(FakeDataCreator.CreateAlbums().FirstOrDefault());
-        }
-
-
-        private void MainRegionNavigation(string navigationTarget)
-        {
-            if (!string.IsNullOrWhiteSpace(navigationTarget))
+            if (!string.IsNullOrWhiteSpace(menuItemViewModel?.NavigationTarget))
             {
-                _regionManager?.RequestNavigate(_navigationCatalog.MainRegion, navigationTarget);
+                _regionManager?.RequestNavigate(_navigationCatalog.MainRegion,
+                                                menuItemViewModel.NavigationTarget,
+                                                new NavigationParameters()
+                                                {
+                                                    {"MenuItemViewModel", menuItemViewModel}
+                                                });
             }
+        }
+
+
+        /// <summary>
+        /// 显示当前播放的歌曲
+        /// </summary>
+        private void ShowPlayingSong()
+        {
+            //让 PlayingSong 从窗口最下方滑出
+            
         }
     }
 }

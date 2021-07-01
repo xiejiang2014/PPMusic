@@ -49,8 +49,7 @@
                 Opacity="0"
                 Command="{x:Static ppMusic:Commands.PlayAlbumCommand}"
                 CommandParameter="{Binding}"
-                Style="{StaticResource TilePlayButtonStyle}">
-            </Button>
+                Style="{StaticResource TilePlayButtonStyle}" />
 
             <!--  播放量  -->
             <mah:ClipBorder

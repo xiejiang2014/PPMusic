@@ -2,8 +2,11 @@
 {
     public class NavigationCatalog
     {
-        public string MainRegion => "MainRegion";
-        public string MenuRegion => "MenuRegion";
+        public string MenuRegion              => "MenuRegion";
+        public string MainRegion              => "MainRegion";
+        public string TitleRegion             => "TitleRegion";
+        public string PlayerCommandsBarRegion => "PlayerCommandsBarRegion";
+
         public string Recommend  => "Recommend";
         public string MusicHall  => "MusicHall";
     }

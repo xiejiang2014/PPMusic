@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -229,12 +230,19 @@ namespace PPMusic.Player
             if (AudioFileReader == null)
             {
                 PlayStatus = PlayStatus.None;
+
+                Debug.Print("状态更改为 none (AudioFileReader == null)");
+
                 return;
             }
 
             if (DirectSoundOut == null)
             {
                 PlayStatus = PlayStatus.Stopped;
+
+
+                Debug.Print("状态更改为 Stopped (DirectSoundOut == null)");
+
                 return;
             }
 
@@ -245,6 +253,9 @@ namespace PPMusic.Player
                              PlaybackState.Stopped => PlayStatus.Stopped,
                              _                     => throw new ArgumentOutOfRangeException()
                          };
+
+
+            Debug.Print($"状态更改为 {PlayStatus} (PlayStatus.Playing)");
         }
 
         #endregion
@@ -365,6 +376,7 @@ namespace PPMusic.Player
             InitDirectSoundOut();
 
             DirectSoundOut.Play();
+            Debug.Print("WaveDirectSoundPlayer.play 被调用 ,开始播放");
 
 
             _timer.AutoReset = true;
@@ -393,8 +405,6 @@ namespace PPMusic.Player
             DirectSoundOut.Init(AudioFileReader);
 
             DirectSoundOut.PlaybackStopped += OnPlaybackStopped;
-
-
         }
 
         #endregion
@@ -473,7 +483,12 @@ namespace PPMusic.Player
             if (DirectSoundOut.PlaybackState != PlaybackState.Stopped)
             {
                 DirectSoundOut.Stop();
+                UpdatePlayStatus();
                 Stopped?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                UpdatePlayStatus();
             }
         }
 
@@ -482,8 +497,6 @@ namespace PPMusic.Player
                                        StoppedEventArgs e
         )
         {
-
-
             _timer.Stop();
             UpdatePlayStatus();
             PlayStatusChanged?.Invoke(this, EventArgs.Empty);

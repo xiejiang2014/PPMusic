@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace PPMusic.View.MusicContents
+﻿namespace PPMusic.View.MainContentPages
 {
     /// <summary>
     /// MusicHall.xaml 的交互逻辑
     /// </summary>
-    public partial class MusicHall : UserControl
+    public partial class MusicHall
     {
         public MusicHall()
         {

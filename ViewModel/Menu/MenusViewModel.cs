@@ -1,4 +1,7 @@
-﻿using MvvmHelpers;
+﻿using System.Linq;
+using System.Windows.Input;
+using MvvmHelpers;
+using Prism.Commands;
 
 namespace PPMusic.ViewModel.Menu
 {
@@ -6,12 +9,23 @@ namespace PPMusic.ViewModel.Menu
     {
         public ObservableRangeCollection<MenuGroupViewModel> MenuGroups { get; }
 
-        public MenusViewModel(NavigationCatalog navigationCatalog,
-                              FakeDataCreator   fakeDataCreator
+        private ICommand _loadedCommand;
+        public  ICommand LoadedCommand => _loadedCommand ??= new DelegateCommand(Loaded);
+
+        public MenusViewModel(FakeDataCreator   fakeDataCreator
         )
         {
             MenuGroups = new ObservableRangeCollection<MenuGroupViewModel>(fakeDataCreator.CreateMenuGroups());
 
         }
+
+
+        private void Loaded()
+        {
+            //默认导航到推荐页
+            Commands.MainRegionNavigationCommand.Execute(MenuGroups.First().MenuItems.FirstOrDefault());
+
+        }
+
     }
 }

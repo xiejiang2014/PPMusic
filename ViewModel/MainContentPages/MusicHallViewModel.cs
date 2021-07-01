@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MvvmHelpers;
+﻿using System.Collections.ObjectModel;
 using PPMusic.Model;
-using Prism.Common;
 using Unity;
 
-namespace PPMusic.ViewModel.MusicContents
+namespace PPMusic.ViewModel.MainContentPages
 {
-    class MusicHallViewModel : BaseViewModel
+    class MusicHallViewModel : ContentViewModelBase
     {
         [InjectionConstructor]
         public MusicHallViewModel()
