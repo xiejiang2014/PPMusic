@@ -26,16 +26,13 @@ namespace PPMusic.ViewModel
 
             Commands.MainRegionNavigationCommand = new DelegateCommand<MenuItemViewModel>(MainRegionNavigation);
 
-            Commands.ShowPlayingSongCommand = new DelegateCommand(ShowPlayingSong);
 
 
             regionManager.RegisterViewWithRegion(navigationCatalog.MenuRegion,              typeof(Menus));
             regionManager.RegisterViewWithRegion(navigationCatalog.TitleRegion,             typeof(View.TitleBar.TitleBar));
             regionManager.RegisterViewWithRegion(navigationCatalog.PlayerCommandsBarRegion, typeof(View.PlayerCommandsBar.PlayerCommandsBar));
-
+            regionManager.RegisterViewWithRegion(navigationCatalog.PlayingSongRegion,       typeof(View.PlayingSong.PlayingSong));
         }
-
-
 
 
         private void MainRegionNavigation(MenuItemViewModel menuItemViewModel)
@@ -52,13 +49,6 @@ namespace PPMusic.ViewModel
         }
 
 
-        /// <summary>
-        /// 显示当前播放的歌曲
-        /// </summary>
-        private void ShowPlayingSong()
-        {
-            //让 PlayingSong 从窗口最下方滑出
-            
-        }
+
     }
 }

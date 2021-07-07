@@ -4,6 +4,8 @@ using ControlzEx.Theming;
 using PPMusic.View;
 using PPMusic.View.MainContentPages;
 using PPMusic.View.Menu;
+using PPMusic.View.PlayerCommandsBar;
+using PPMusic.View.PlayingSong;
 using PPMusic.View.TitleBar;
 using PPMusic.ViewModel;
 using PPMusic.ViewModel.MainContentPages;
@@ -25,18 +27,17 @@ namespace PPMusic
             var color = Color.FromRgb(31, 211, 182);
 
             var theme = new Theme(
-                "Light.PPGreenBlue",
-                "PPGreenBlue(Light)",
-                "Light",
-                "PPGreenBlue",
-                color,
-                new SolidColorBrush(color),
-                false,
-                false
-            );
+                                  "Light.PPGreenBlue",
+                                  "PPGreenBlue(Light)",
+                                  "Light",
+                                  "PPGreenBlue",
+                                  color,
+                                  new SolidColorBrush(color),
+                                  false,
+                                  false
+                                 );
 
             ThemeManager.Current.AddTheme(theme);
-
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -61,6 +62,8 @@ namespace PPMusic
             base.ConfigureViewModelLocator();
 
             ViewModelLocationProvider.Register<ShellWindow, ShellWindowViewModel>();
+            ViewModelLocationProvider.Register<PlayerCommandsBar, PlayerCommandsBarViewModel>();
+            ViewModelLocationProvider.Register<PlayingSong, PlayerCommandsBarViewModel>();
 
             ViewModelLocationProvider.Register<Menus, MenusViewModel>();
             ViewModelLocationProvider.Register<TitleBar, TitleBarViewModel>();

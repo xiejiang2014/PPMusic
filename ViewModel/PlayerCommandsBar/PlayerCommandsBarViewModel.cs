@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
+using JetBrains.Annotations;
 using MoreLinq;
 using MvvmHelpers;
 using PPMusic.Model;
@@ -13,27 +14,26 @@ using PropertyChanged;
 
 namespace PPMusic.ViewModel.PlayerCommandsBar
 {
-    public class PlayerCommandsBarViewModel:BaseViewModel
+    [UsedImplicitly]
+    public class PlayerCommandsBarViewModel : BaseViewModel
     {
-
         #region 播放核心
 
         public WaveDirectSoundPlayer WaveDirectSoundPlayer { get; } = new();
 
         #endregion
-        
+
         public PlayerCommandsBarViewModel()
         {
             WaveDirectSoundPlayer.PlayComplete += WaveDirectSoundPlayer_PlayComplete;
-            
+
             Commands.PlayAlbumCommand = new DelegateCommand<Album>(PlayAlbum);
             Commands.LoadAlbumCommand = new DelegateCommand<Album>(LoadAlbum);
 
             //随便加载一个专辑
             Commands.LoadAlbumCommand.Execute(FakeDataCreator.CreateAlbums().FirstOrDefault());
-
         }
-        
+
         #region 专辑/歌曲的加载和播放
 
         private void PlayAlbum(Album album)
@@ -49,6 +49,9 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
         private void LoadAlbum(Album album)
         {
             Album = album;
+            
+            _playHistory.AddLast((Album, Song));
+            CurrentHistoryNode = _playHistory.Last;
         }
 
         private Album _album;
@@ -62,7 +65,7 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
             set
             {
                 _album = value;
-                Song = _album.Songs.FirstOrDefault();
+                Song   = _album.Songs.FirstOrDefault();
             }
         }
 
@@ -118,7 +121,6 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
 
         #endregion
 
-
         #region 循环模式
 
         private DelegateCommand<LoopModes?> _setLoopModeCommand;
@@ -139,11 +141,11 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
         public string LoopModeName =>
             LoopMode switch
             {
-                LoopModes.InOrder => "顺序播放",
-                LoopModes.LoopList => "列表循环",
-                LoopModes.Random => "随机播放",
+                LoopModes.InOrder    => "顺序播放",
+                LoopModes.LoopList   => "列表循环",
+                LoopModes.Random     => "随机播放",
                 LoopModes.LoopSingle => "单曲循环",
-                _ => throw new ArgumentOutOfRangeException()
+                _                    => throw new ArgumentOutOfRangeException()
             };
 
         public LoopModes LoopMode { get; set; } = LoopModes.Random;
@@ -157,7 +159,7 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void WaveDirectSoundPlayer_PlayComplete(object sender,
+        private void WaveDirectSoundPlayer_PlayComplete(object    sender,
                                                         EventArgs e
         )
         {
@@ -192,8 +194,7 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
         /// </summary>
         public ICommand PlayPreviousSongCommand =>
             _playPreviousSongCommand ??=
-                new DelegateCommand(PlayPreviousSong, CanPlayPreviousSong)
-                   .ObservesProperty(() => CurrentHistoryNode);
+                new DelegateCommand(PlayPreviousSong);
 
 
         private void PlayPreviousSong()
@@ -201,7 +202,7 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
             if (CurrentHistoryNode?.Previous is not null)
             {
                 Album = CurrentHistoryNode.Previous.Value.Album;
-                Song = CurrentHistoryNode.Previous.Value.Song;
+                Song  = CurrentHistoryNode.Previous.Value.Song;
 
                 if (WaveDirectSoundPlayer.CanPlay)
                 {
@@ -209,20 +210,27 @@ namespace PPMusic.ViewModel.PlayerCommandsBar
                     CurrentHistoryNode = CurrentHistoryNode.Previous;
                 }
             }
-        }
 
-        private bool CanPlayPreviousSong()
-        {
-            return CurrentHistoryNode?.Previous is not null;
-        }
+            if (CurrentHistoryNode is not null)
+            {
+                Album = CurrentHistoryNode.Value.Album;
+                Song  = CurrentHistoryNode.Value.Song;
 
+                if (WaveDirectSoundPlayer.CanPlay)
+                {
+                    WaveDirectSoundPlayer.Play();
+                    CurrentHistoryNode = CurrentHistoryNode;
+                }
+            }
+        }
+        
         private void TryPlayNextSong()
         {
             //如果当前是在历史记录中,那么播放历史记录中的下一条
             if (CurrentHistoryNode?.Next is not null)
             {
                 Album = CurrentHistoryNode.Next.Value.Album;
-                Song = CurrentHistoryNode.Next.Value.Song;
+                Song  = CurrentHistoryNode.Next.Value.Song;
 
                 if (WaveDirectSoundPlayer.CanPlay)
                 {

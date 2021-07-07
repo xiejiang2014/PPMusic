@@ -2,28 +2,54 @@
     x:Class = "PPMusic.View.PlayingSong.PlayingSong"
     xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:playingSong = "clr-namespace:PPMusic.ViewModel.PlayingSong"
+    xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:playerCommandsBar = "clr-namespace:PPMusic.View.PlayerCommandsBar"
-    mc:Ignorable = "d"
-    d:DataContext = "{d:DesignInstance playingSong:PlayingSongViewModel}"
+    xmlns:wpf = "clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF"
+    xmlns:playerCommandsBar1 = "clr-namespace:PPMusic.ViewModel.PlayerCommandsBar"
+    xmlns:ppMusic = "clr-namespace:PPMusic"
+    d:DataContext = "{d:DesignInstance playerCommandsBar1:PlayerCommandsBarViewModel}"
     d:DesignHeight = "1080"
-    d:DesignWidth = "1920">
+    d:DesignWidth = "1920"
+    mc:Ignorable = "d" >
 
-    <Grid>
-        <!-- 模糊的背景 -->
-        <Image HorizontalAlignment = "Center"
+    <UserControl.Resources>
+        <!--  覆盖按钮的默认前景色  此页面为深色背景,所以,此处将前景色设为白色-->
+        <!-- ReSharper disable once Xaml.RedundantResource -->
+        <SolidColorBrush
+            x:Key = "PrimaryElementsDefaultForeground"
+            Color = "White" />
+        <SolidColorBrush
+            x:Key = "SecondaryElementsDefaultForeground"
+            Color = "#7f7f7f" />
+    </UserControl.Resources>
+
+    <Grid Background = "Black" >
+
+        <!--  模糊的背景  使用 SkiaSharp 的方案-->
+        <wpf:SKElement HorizontalAlignment = "Stretch"
+                       PaintSurface = "BlurBackgroundSkElement_OnPaintCanvas"
+                       VerticalAlignment = "Stretch" />
+
+
+        <!-- 模糊的背景 WPF 自带的方案, 性能太差 -->
+        <!--<Image HorizontalAlignment = "Center"
                VerticalAlignment = "Center"
-               Stretch = "UniformToFill"
-               Source = "{Binding Path=Album.CoverImageUrl}" >
+               Source = "{Binding Path=Album.CoverImageUrl}"
+               Stretch = "UniformToFill" >
 
-            <Image.Effect>
-                <BlurEffect Radius = "500" />
-            </Image.Effect>
-        </Image>
+            --><!--<Image.Effect>
+                <BlurEffect Radius = "500" RenderingBias="Performance" />
+            </Image.Effect>--><!--
 
-        <!-- 遮罩 -->
+            <Image.CacheMode>
+                <BitmapCache EnableClearType = "False"
+                             RenderAtScale = "1"
+                             SnapsToDevicePixels = "False" />
+            </Image.CacheMode>
+        </Image>-->
+
+        <!--  遮罩  -->
         <Rectangle Fill = "#55000000" />
 
         <Grid>
@@ -41,13 +67,14 @@
             <Image Grid.Row = "1"
                    Width = "450"
                    Height = "450"
+                   Margin = "150,0,-150,0"
                    Source = "{Binding Path=Album.CoverImageUrl}" />
 
             <TextBlock Grid.Row = "1"
                        Grid.Column = "1"
-                       Foreground = "White"
                        HorizontalAlignment = "Center"
-                       VerticalAlignment = "Center" >
+                       VerticalAlignment = "Center"
+                       Foreground = "White" >
                 //todo 歌词
             </TextBlock>
 
@@ -56,7 +83,24 @@
                 Grid.Column = "0"
                 Grid.ColumnSpan = "2"
                 Margin = "35,0"
+                IsShowAlbumTitle = "False"
                 IsShowCoverButton = "False" />
         </Grid>
+
+        <!-- 左上角的向下关闭按钮 -->
+        <Button HorizontalAlignment = "Left"
+                VerticalAlignment = "Top"
+                Margin = "20"
+                Style = "{StaticResource SecondaryMouseOverAccentButtonStyle}"
+                Command = "{x:Static ppMusic:Commands.HidePlayingSongCommand}" >
+            <Path Width = "20"
+                  Height = "20"
+                  Margin = "0,0,0,0"
+                  Data = "M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83  c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z  "
+                  Fill = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                          AncestorType=ButtonBase},
+                                           Path=Foreground}"
+                  Stretch = "Uniform" />
+        </Button>
     </Grid>
 </UserControl>

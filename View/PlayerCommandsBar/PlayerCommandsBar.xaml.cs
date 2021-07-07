@@ -49,5 +49,34 @@ namespace PPMusic.View.PlayerCommandsBar
         }
 
         #endregion
+
+
+
+
+        public bool IsShowAlbumTitle
+        {
+            get => (bool) GetValue(IsShowAlbumTitleProperty);
+            set => SetValue(IsShowAlbumTitleProperty, value);
+        }
+
+        public static readonly DependencyProperty IsShowAlbumTitleProperty =
+            DependencyProperty.Register(
+                       "IsShowAlbumTitle",
+                       typeof(bool),
+                       typeof(PlayerCommandsBar),
+                       new PropertyMetadata(true, IsShowAlbumTitlePropertyChanged)
+                      );
+
+        private static void IsShowAlbumTitlePropertyChanged(DependencyObject                   d,
+                                             DependencyPropertyChangedEventArgs e
+        )
+        {
+            if (d is PlayerCommandsBar thisPlayerCommandsBar             &&
+                e.OldValue is bool oldValue &&
+                e.NewValue is bool newValue)
+            {
+
+            }
+        }
     }
 }

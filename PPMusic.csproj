@@ -18,8 +18,9 @@
     <PackageReference Include="NAudio" Version="2.0.1" />
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0"  PrivateAssets="All"/>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" PrivateAssets="All" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
+    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.80.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -217,6 +218,7 @@
 
   <ItemGroup>
     <Folder Include="ViewModel\PlayerCommandsBar\" />
+    <Folder Include="ViewModel\PlayingSong\" />
   </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:model="clr-namespace:PPMusic.Model"
-    xmlns:ppMusic = "clr-namespace:PPMusic"
+    xmlns:ppMusic="clr-namespace:PPMusic"
     d:DataContext="{d:DesignInstance model:Album}"
     mc:Ignorable="d">
 
@@ -46,9 +46,9 @@
                 x:Name="PlayButton"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Opacity="0"
                 Command="{x:Static ppMusic:Commands.PlayAlbumCommand}"
                 CommandParameter="{Binding}"
+                Opacity="0"
                 Style="{StaticResource TilePlayButtonStyle}" />
 
             <!--  播放量  -->
@@ -84,12 +84,11 @@
             Margin="0,10,0,0"
             HorizontalAlignment="Left"
             Content="{Binding Path=Title}"
-            Cursor="Hand"
-            Style="{StaticResource BlackForeMouseOverAccentButtonStyle}" />
+            Style="{StaticResource MouseOverAccentButtonStyle}" />
     </Grid>
 
     <UserControl.Triggers>
-        <EventTrigger RoutedEvent="MouseEnter">
+        <EventTrigger RoutedEvent="Mouse.MouseEnter">
             <BeginStoryboard>
                 <Storyboard>
                     <DoubleAnimation
@@ -126,7 +125,7 @@
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
-        <EventTrigger RoutedEvent="MouseLeave">
+        <EventTrigger RoutedEvent="Mouse.MouseLeave">
             <BeginStoryboard>
                 <Storyboard>
                     <DoubleAnimation

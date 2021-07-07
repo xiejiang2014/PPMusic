@@ -3,14 +3,14 @@
     xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d = "http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mah = "http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc = "http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:player = "clr-namespace:PPMusic.Player"
-    xmlns:mah = "http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:playerCommandsBar = "clr-namespace:PPMusic.ViewModel.PlayerCommandsBar"
     xmlns:ppMusic = "clr-namespace:PPMusic"
+    x:Name = "ThisPlayerCommandsBar"
     d:DataContext = "{d:DesignInstance playerCommandsBar:PlayerCommandsBarViewModel}"
     d:DesignHeight = "50"
-    x:Name = "ThisPlayerCommandsBar"
     d:DesignWidth = "800"
     mc:Ignorable = "d" >
     <Grid>
@@ -22,9 +22,13 @@
         <!--  贴顶的进度条  -->
         <Slider Height = "10"
                 IsMoveToPointEnabled = "True"
-                Maximum = "{Binding  Path=WaveDirectSoundPlayer.TotalTime,Mode=OneWay,Converter={StaticResource TimeSpanToMsConverter} }"
-                Value = "{Binding  Path=WaveDirectSoundPlayer.CurrentTime ,Mode=TwoWay,Converter={StaticResource TimeSpanToMsConverter}}"
-                Style = "{StaticResource PlayerProgressSliderStyle}" />
+                Maximum = "{Binding Path=WaveDirectSoundPlayer.TotalTime,
+                              Mode=OneWay,
+                              Converter={StaticResource TimeSpanToMsConverter}}"
+                Style = "{StaticResource PlayerProgressSliderStyle}"
+                Value = "{Binding Path=WaveDirectSoundPlayer.CurrentTime,
+                            Mode=TwoWay,
+                            Converter={StaticResource TimeSpanToMsConverter}}" />
 
         <Grid Grid.Row = "1"
               Margin = "0,4,0,8"
@@ -36,8 +40,8 @@
             </Grid.ColumnDefinitions>
 
             <!--  靠左的专辑/歌曲信息  -->
-            <Grid ShowGridLines = "False"
-                  Cursor = "Hand" >
+            <Grid Cursor = "Hand"
+                  ShowGridLines = "False" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width = "Auto" />
                     <ColumnDefinition Width = "*" />
@@ -49,46 +53,48 @@
                     <RowDefinition Height = "*" />
                 </Grid.RowDefinitions>
 
-                <!-- 专辑封面按钮 -->
+                <!--  专辑封面按钮  -->
                 <Button Grid.RowSpan = "2"
+                        Width = "40"
+                        Height = "40"
                         Margin = "20,0,10,0"
                         Padding = "0"
-                        Height = "40"
-                        Width = "40"
-                        Command = "{x:Static ppMusic:Commands.ShowPlayingSongCommand}"
-                        Visibility = "{Binding ElementName=ThisPlayerCommandsBar,Path=IsShowCoverButton ,Converter={StaticResource BoolToVisibilityConverter} }"
                         mah:ControlsHelper.CornerRadius = "3"
-                        Style = "{StaticResource  TransparentBackgroundButtonStyle}" >
+                        Command = "{x:Static ppMusic:Commands.ShowPlayingSongCommand}"
+                        Style = "{StaticResource TransparentBackgroundButtonStyle}"
+                        Visibility = "{Binding ElementName=ThisPlayerCommandsBar,
+                                         Path=IsShowCoverButton,
+                                         Converter={StaticResource BoolToVisibilityConverter}}" >
 
                     <Grid>
-                        <!-- 封面图片 -->
+                        <!--  封面图片  -->
                         <Image Width = "40"
                                Height = "40"
-                               Source = "{Binding  Path=Album.CoverImageUrl}"
+                               Source = "{Binding Path=Album.CoverImageUrl}"
                                Stretch = "Uniform" />
 
-                        <!-- 遮罩 默认全透明 -->
-                        <Rectangle Width = "40"
-                                   x:Name = "MaskRectangle"
+                        <!--  遮罩 默认全透明  -->
+                        <Rectangle x:Name = "MaskRectangle"
+                                   Width = "40"
                                    Height = "40"
-                                   Opacity = "0"
-                                   Fill = "Black" />
+                                   Fill = "Black"
+                                   Opacity = "0" />
 
-                        <!-- 向上的箭头图标,默认全透明 -->
-                        <Path Width = "20"
+                        <!--  向上的箭头图标,默认全透明  -->
+                        <Path x:Name = "Icon"
+                              Width = "20"
                               Height = "20"
                               Margin = "0,0,0,0"
                               Data = "M165.75,290.187l134.25-108,134.25,112a24.952,24.952,0,0,0,31.75-38.5l-150-125a25,25,0,0,0-31.75,0l-150,120.75a24.97,24.97,0,1,0,31.5,38.75ZM316,305.687a25,25,0,0,0-31.75,0l-150,120.75a25.066,25.066,0,1,0,31.5,39L300,357.187l134.25,112a24.952,24.952,0,0,0,31.75-38.5Z"
                               Fill = "White"
-                              x:Name = "Icon"
                               Opacity = "0"
                               Stretch = "Uniform" />
                     </Grid>
 
-                    <!-- 鼠标移入移出的动画 -->
+                    <!--  鼠标移入移出的动画  -->
                     <Button.Triggers>
                         <EventTrigger
-                            RoutedEvent = "MouseEnter" >
+                            RoutedEvent = "Mouse.MouseEnter" >
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation
@@ -111,7 +117,7 @@
                         </EventTrigger>
 
                         <EventTrigger
-                            RoutedEvent = "MouseLeave" >
+                            RoutedEvent = "Mouse.MouseLeave" >
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation
@@ -135,34 +141,38 @@
                     </Button.Triggers>
                 </Button>
 
-
                 <TextBlock Grid.Row = "0"
                            Grid.Column = "1"
                            FontSize = "12"
-                           Foreground = "Black"
-                           Text = "{Binding  Path=Album.Title, FallbackValue='PP音乐,让生活充满音乐', TargetNullValue='PP音乐,让生活充满音乐'}" />
+                           Visibility = "{Binding ElementName=ThisPlayerCommandsBar,
+                                         Path=IsShowAlbumTitle,
+                                         Converter={StaticResource BoolToVisibilityConverter}}"
+                           Foreground = "{DynamicResource SecondaryElementsDefaultForeground}"
+                           Text = "{Binding Path=Album.Title,
+                                   FallbackValue='PP音乐,让生活充满音乐',
+                                   TargetNullValue='PP音乐,让生活充满音乐'}" />
 
                 <StackPanel Grid.Row = "1"
                             Grid.Column = "1"
                             Orientation = "Horizontal" >
                     <!--  喜欢  -->
-                    <Button HorizontalAlignment = "Center"
-                            Margin = "0,0,5,0"
+                    <Button Margin = "0,0,5,0"
+                            HorizontalAlignment = "Center"
                             Style = "{StaticResource PlayerLikeButtonStyle}" />
 
                     <!--  不喜欢  -->
-                    <Button HorizontalAlignment = "Center"
-                            Margin = "0,0,5,0"
+                    <Button Margin = "0,0,5,0"
+                            HorizontalAlignment = "Center"
                             Style = "{StaticResource PlayerUnlikeButtonStyle}" />
 
                     <!--  下载  -->
-                    <Button HorizontalAlignment = "Center"
-                            Margin = "0,0,5,0"
+                    <Button Margin = "0,0,5,0"
+                            HorizontalAlignment = "Center"
                             Style = "{StaticResource PlayerDownloadButtonStyle}" />
 
                     <!--  菜单  -->
-                    <Button HorizontalAlignment = "Center"
-                            Margin = "0,0,5,0"
+                    <Button Margin = "0,0,5,0"
+                            HorizontalAlignment = "Center"
                             Style = "{StaticResource PlayerMenuButtonStyle}" />
                 </StackPanel>
             </Grid>
@@ -174,25 +184,27 @@
                         Orientation = "Horizontal" >
 
                 <!--  循环方式  -->
-                <ToggleButton Margin = "5,0"
-                              x:Name = "LoopModesToggleButton"
-                              Content = "{Binding  Path=LoopMode, Converter={StaticResource LoopModeToIconPathConverter}}"
-                              Style = "{StaticResource PlayerLoopModeToggleButtonButtonStyle}" />
+                <ToggleButton
+                    x:Name = "LoopModesToggleButton"
+                    Margin = "5,0"
+                    Content = "{Binding Path=LoopMode,
+                                      Converter={StaticResource LoopModeToIconPathConverter}}"
+                    Style = "{StaticResource PlayerLoopModeToggleButtonButtonStyle}" />
 
                 <!--  循环方式调节弹出  -->
-                <Popup AllowsTransparency = "True"
+                <Popup Margin = "30"
+                       AllowsTransparency = "True"
                        IsOpen = "{Binding IsChecked,
-                                                 ElementName=LoopModesToggleButton}"
+                                     ElementName=LoopModesToggleButton}"
                        Placement = "Center"
                        PlacementTarget = "{Binding ElementName=LoopModesToggleButton}"
                        PopupAnimation = "Fade"
                        StaysOpen = "False"
-                       VerticalOffset = "-120"
-                       Margin = "30" >
+                       VerticalOffset = "-120" >
 
                     <player:LoopModesSelectPopup
-                        DataContext = "{Binding }"
-                        Margin = "40,40" />
+                        Margin = "40,40"
+                        DataContext = "{Binding}" />
                 </Popup>
 
 
@@ -205,25 +217,29 @@
                 <!--  播放和暂停  -->
                 <Grid>
                     <Button HorizontalAlignment = "Center"
-                            Command = "{Binding  Path=PlayCommand}"
+                            Command = "{Binding Path=PlayCommand}"
                             Style = "{StaticResource PlayerPlayButtonStyle}"
-                            Visibility = "{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled,Converter={StaticResource BoolToVisibilityConverter}}" />
+                            Visibility = "{Binding RelativeSource={RelativeSource Self},
+                                             Path=IsEnabled,
+                                             Converter={StaticResource BoolToVisibilityConverter}}" />
 
                     <Button HorizontalAlignment = "Center"
-                            Command = "{Binding  Path=PauseCommand}"
+                            Command = "{Binding Path=PauseCommand}"
                             Style = "{StaticResource PlayerPauseButtonStyle}"
-                            Visibility = "{Binding RelativeSource={RelativeSource Self}, Path=IsEnabled,Converter={StaticResource BoolToVisibilityConverter}}" />
+                            Visibility = "{Binding RelativeSource={RelativeSource Self},
+                                             Path=IsEnabled,
+                                             Converter={StaticResource BoolToVisibilityConverter}}" />
                 </Grid>
 
                 <!--  下一首  -->
                 <Button Margin = "5,0"
                         HorizontalAlignment = "Center"
-                        Command = "{Binding  Path=PlayNextSongCommand}"
+                        Command = "{Binding Path=PlayNextSongCommand}"
                         Style = "{StaticResource PlayerForwardButtonStyle}" />
 
                 <!--  音量  -->
-                <ToggleButton Margin = "5,0"
-                              x:Name = "VolumeToggleButton"
+                <ToggleButton x:Name = "VolumeToggleButton"
+                              Margin = "5,0"
                               HorizontalAlignment = "Center" >
 
                     <ToggleButton.Style>
@@ -231,7 +247,7 @@
                             BasedOn = "{StaticResource VolumeToggleButtonStyle}"
                             TargetType = "ToggleButton" >
                             <Style.Triggers>
-                                <!-- 静音时,变换图标为画×的喇叭 -->
+                                <!--  静音时,变换图标为画×的喇叭  -->
                                 <DataTrigger
                                     Binding = "{Binding Path=WaveDirectSoundPlayer.IsMute}"
                                     Value = "True" >
@@ -243,7 +259,9 @@
                                                     Height = "16"
                                                     Margin = "0,0,0,0"
                                                     Data = "M509.15,838.867l-264.7-216.6H50a50,50,0,0,1-50-50v-300a50,50,0,0,1,50-50H244.5L509.15,5.667A25,25,0,0,1,550,25.017v794.5a25,25,0,0,1-40.85,19.35ZM757.1,455.847,618.581,594.367,585,560.786,723.52,422.267,585,283.747l33.581-33.581L757.1,388.687l138.52-138.52L929.2,283.747l-138.52,138.52L929.2,560.786,895.62,594.367Z"
-                                                    Fill = "{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ButtonBase}, Path=Foreground}"
+                                                    Fill = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                                                  AncestorType=ButtonBase},
+                                                                   Path=Foreground}"
                                                     Stretch = "Uniform" />
                                             </DataTemplate>
                                         </Setter.Value>
@@ -256,19 +274,18 @@
 
 
                 <!--  音量调节弹出  -->
-                <Popup AllowsTransparency = "True"
+                <Popup Margin = "30"
+                       AllowsTransparency = "True"
                        IsOpen = "{Binding IsChecked,
-                                                 ElementName=VolumeToggleButton}"
+                                     ElementName=VolumeToggleButton}"
                        Placement = "Center"
                        PlacementTarget = "{Binding ElementName=VolumeToggleButton}"
                        PopupAnimation = "Fade"
                        StaysOpen = "False"
-                       VerticalOffset = "-150"
-                       Margin = "30" >
+                       VerticalOffset = "-150" >
 
-                    <player:VolumePopup
-                        DataContext = "{Binding Path=WaveDirectSoundPlayer}"
-                        Margin = "40,40" />
+                    <player:VolumePopup Margin = "40,40"
+                        DataContext = "{Binding Path=WaveDirectSoundPlayer}" />
                 </Popup>
             </StackPanel>
 
@@ -279,26 +296,28 @@
                         VerticalAlignment = "Center"
                         Orientation = "Horizontal" >
 
-                <TextBlock FontSize = "12"
-                           VerticalAlignment = "Center"
-                           Foreground = "Black"
-                           Text = "{Binding  Path=WaveDirectSoundPlayer.CurrentTime ,Mode=OneWay,StringFormat={}{0:mm}:{0:ss}}" />
 
-                <TextBlock Margin = "4,0"
+                <TextBlock VerticalAlignment = "Center"
                            FontSize = "12"
-                           Foreground = "Black"
-                           VerticalAlignment = "Center"
-                           Text = "/" />
+                           Foreground = "{DynamicResource SecondaryElementsDefaultForeground}" >
 
-                <TextBlock FontSize = "12"
-                           VerticalAlignment = "Center"
-                           Foreground = "Black"
-                           Text = "{Binding  Path=WaveDirectSoundPlayer.TotalTime ,Mode=OneWay,StringFormat={}{0:mm}:{0:ss}}" />
+                    <Run
+                        Text = "{Binding Path=WaveDirectSoundPlayer.CurrentTime,
+                                   Mode=OneWay,
+                                   StringFormat={}{0:mm}:{0:ss}}" />
+                    <Run Text = "/" />
 
-                <Button Content = "词"
-                        Margin = "6,0"
+                    <Run
+                        Text = "{Binding Path=WaveDirectSoundPlayer.TotalTime,
+                                   Mode=OneWay,
+                                   StringFormat={}{0:mm}:{0:ss}}" />
+                </TextBlock>
+
+
+                <Button Margin = "6,0"
                         VerticalAlignment = "Center"
-                        Style = "{StaticResource BlackForeMouseOverAccentButtonStyle}" />
+                        Content = "词"
+                        Style = "{StaticResource PlayerLyricsButtonStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

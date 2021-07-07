@@ -60,7 +60,7 @@
                         Command = "{Binding SetLoopModeCommand}"
                         CommandParameter = "{x:Static  enum:LoopModes.Random}"
                         HorizontalAlignment = "Center"
-                        Style = "{StaticResource PlayerRanAllButtonStyle}" />
+                        Style = "{StaticResource PlayerRandomAllButtonStyle}" />
 
                     <Rectangle Height = "1"
                                HorizontalAlignment = "Stretch"

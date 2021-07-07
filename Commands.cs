@@ -24,5 +24,6 @@ namespace PPMusic
         /// 显示正在播放的歌曲命令
         /// </summary>
         public static ICommand ShowPlayingSongCommand { get; set; }
+        public static ICommand HidePlayingSongCommand { get; set; }
     }
 }

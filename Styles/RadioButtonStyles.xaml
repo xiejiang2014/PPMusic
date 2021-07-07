@@ -3,7 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
-    <Style x:Key="MenuRadioButtonStyle" TargetType="{x:Type RadioButton}">
+    <Style
+        x:Key="MenuRadioButtonStyle"
+        TargetType="{x:Type RadioButton}">
 
         <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Background" Value=" Transparent" />
@@ -31,7 +33,8 @@
                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                             Content="{TemplateBinding Content}"
-                            ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(mah:ControlsHelper.ContentCharacterCasing)}"
+                            ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent},
+                                                             Path=(mah:ControlsHelper.ContentCharacterCasing)}"
                             ContentStringFormat="{TemplateBinding ContentStringFormat}"
                             ContentTemplate="{TemplateBinding ContentTemplate}"
                             ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"

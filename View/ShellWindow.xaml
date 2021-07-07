@@ -21,6 +21,7 @@
                  WindowTitleBrush = "#f6f6f6"
                  mc:Ignorable = "d" >
 
+
     <mah:MetroWindow.TitleTemplate>
         <DataTemplate>
             <Border Background = "#f6f6f6"
@@ -32,7 +33,8 @@
         </DataTemplate>
     </mah:MetroWindow.TitleTemplate>
 
-    <Grid Margin = "0,-35,0,0" >
+
+    <Grid Margin = "0,-50,0,0" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width = "Auto" />
             <ColumnDefinition Width = "*" />
@@ -64,8 +66,8 @@
             </Grid.RowDefinitions>
 
             <!--  标题区  -->
-            <ContentControl
-                regions:RegionManager.RegionName = "TitleRegion" />
+            <ContentControl Margin = "0,20,0,0"
+                            regions:RegionManager.RegionName = "TitleRegion" />
 
             <!--  主内容区  -->
             <mah:TransitioningContentControl Grid.Row = "1"
@@ -77,6 +79,13 @@
                             regions:RegionManager.RegionName = "PlayerCommandsBarRegion" />
         </Grid>
 
+        <ContentControl Grid.Column = "0"
+                        Grid.ColumnSpan = "2"
+                        HorizontalAlignment = "Stretch"
+                        VerticalAlignment = "Stretch"
+                        x:Name = "PlayingSongRegion"
+                        Visibility = "Collapsed"
+                        regions:RegionManager.RegionName = "PlayingSongRegion" />
 
     </Grid>
 </mah:MetroWindow>
