@@ -39,3 +39,4 @@ Refractored.MvvmHelpers
 预览图:
 ![image](https://github.com/xiejiang2014/PPMusic/blob/main/Gallery/1.png)
 
+![image](https://github.com/xiejiang2014/PPMusic/blob/main/Gallery/2.png)
