@@ -155,10 +155,20 @@
                 <StackPanel Grid.Row = "1"
                             Grid.Column = "1"
                             Orientation = "Horizontal" >
+
                     <!--  喜欢  -->
-                    <Button Margin = "0,0,5,0"
+                    <ToggleButton Margin = "0,0,5,0"
+                                  HorizontalAlignment = "Center" >
+                        <ToggleButton.Style>
+                            <Style
+                                BasedOn = "{StaticResource PlayerLikeToggleButtonStyle}"
+                                TargetType = "{x:Type ToggleButton}" />
+                        </ToggleButton.Style>
+                    </ToggleButton>
+
+                    <!--<Button Margin = "0,0,5,0"
                             HorizontalAlignment = "Center"
-                            Style = "{StaticResource PlayerLikeButtonStyle}" />
+                            Style = "{StaticResource PlayerLikeButtonStyle}" />-->
 
                     <!--  不喜欢  -->
                     <Button Margin = "0,0,5,0"

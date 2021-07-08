@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using MoreLinq;
 using MvvmHelpers;
 
 namespace PPMusic.Model
@@ -44,10 +45,21 @@ namespace PPMusic.Model
         /// </summary>
         public string PublisherCompany { get; set; }
 
+
+        private readonly ObservableCollection<Song> _songs = new();
+
         /// <summary>
         /// 歌曲列表
         /// </summary>
-        public ObservableCollection<Song> Songs { get; set; } = new();
+        public ObservableCollection<Song> Songs
+        {
+            get => _songs;
+            init
+            {
+                _songs = value;
+                _songs.ForEach(v => v.ParentAlbum = this);
+            }
+        }
 
         /// <summary>
         /// 描述

@@ -3,7 +3,6 @@
     xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" >
 
 
-
     <!--  播放进度条样式  -->
     <Style x:Key = "PlayerProgressSliderStyle"
            TargetType = "{x:Type Slider}" >
@@ -67,32 +66,6 @@
         </Style.Setters>
     </Style>
 
-
-    <!--  底部16*16按钮的样式  -->
-    <Style x:Key = "PlayerSmallButtonStyle"
-           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
-           TargetType = "ButtonBase" >
-        <Setter Property = "Foreground"
-                Value = "{DynamicResource PrimaryElementsDefaultForeground}" />
-        <Style.Triggers>
-            <!--  按下时,像右下偏移1个像素  -->
-            <Trigger Property = "IsPressed"
-                     Value = "True" >
-                <Setter Property = "RenderTransform" >
-                    <Setter.Value>
-                        <TranslateTransform X = "1"
-                            Y = "1" />
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-
-            <Trigger Property = "IsEnabled"
-                     Value = "False" >
-                <Setter Property = "Foreground"
-                        Value = "{DynamicResource ElementsDisabledForeground}" />
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
     <!--  循环模式选择按钮样式  -->
     <Style x:Key = "PlayerLoopModeSelectButtonStyle"
@@ -251,7 +224,7 @@
 
     <!--  上一曲按钮样式  -->
     <Style x:Key = "PlayerBackButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
            TargetType = "ButtonBase" >
         <Style.Setters>
             <Setter Property = "ContentTemplate" >
@@ -274,7 +247,7 @@
 
     <!--  下一曲按钮样式  -->
     <Style x:Key = "PlayerForwardButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
            TargetType = "ButtonBase" >
         <Style.Setters>
             <Setter Property = "ContentTemplate" >
@@ -295,10 +268,56 @@
     </Style>
 
 
-    <Style x:Key = "PlayerLikeButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
-           TargetType = "ButtonBase" >
+    <Style x:Key = "PlayerLikeToggleButtonStyle"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
+           TargetType = "ToggleButton" >
 
+        <Setter Property = "Foreground"
+                Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
+
+        <Setter Property = "ContentTemplate" >
+            <Setter.Value>
+                <DataTemplate>
+                    <Path x:Name = "Icon"
+                          Width = "16"
+                          Height = "16"
+                          Margin = "0,0,0,0"
+                          Data = "M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                          Stretch = "Uniform"
+                          Fill = "{x:Null}"
+                          Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                                                                            AncestorType=ButtonBase},
+                                             Path=Foreground}" />
+
+                    <DataTemplate.Triggers>
+                        <DataTrigger
+                            Binding = "{Binding RelativeSource={RelativeSource  Mode=FindAncestor,AncestorType=ToggleButton}, Path=IsChecked}"
+                            Value = "True" >
+                            <DataTrigger.Setters>
+                                <Setter TargetName = "Icon"
+                                    Property = "Stroke"
+                                    Value = "#ff6a6a" />
+                                <Setter TargetName = "Icon"
+                                    Property = "Fill"
+                                    Value = "#ff6a6a" />
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property = "IsMouseOver"
+                     Value = "True" >
+                <Setter Property = "Foreground"
+                        Value = "#ff6a6a" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key = "PlayerUnlikeButtonStyle"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
+           TargetType = "ButtonBase" >
         <Setter Property = "Foreground"
                 Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
 
@@ -308,7 +327,7 @@
                     <Path Width = "16"
                           Height = "16"
                           Margin = "0,0,0,0"
-                          Data = "M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+                          Data = "M473.7 73.8l-2.4-2.5c-46-47-118-51.7-169.6-14.8L336 159.9l-96 64 48 128-144-144 96-64-28.6-86.5C159.7 19.6 87 24 40.7 71.4l-2.4 2.4C-10.4 123.6-12.5 202.9 31 256l212.1 218.6c7.1 7.3 18.6 7.3 25.7 0L481 255.9c43.5-53 41.4-132.3-7.3-182.1z"
                           Fill = "{x:Null}"
                           Stretch = "Uniform"
                           Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
@@ -319,80 +338,57 @@
         </Setter>
     </Style>
 
-    <Style x:Key = "PlayerUnlikeButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
-           TargetType = "ButtonBase" >
-            <Setter Property = "Foreground"
-                    Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
-
-            <Setter Property = "ContentTemplate" >
-                <Setter.Value>
-                    <DataTemplate>
-                        <Path Width = "16"
-                              Height = "16"
-                              Margin = "0,0,0,0"
-                              Data = "M473.7 73.8l-2.4-2.5c-46-47-118-51.7-169.6-14.8L336 159.9l-96 64 48 128-144-144 96-64-28.6-86.5C159.7 19.6 87 24 40.7 71.4l-2.4 2.4C-10.4 123.6-12.5 202.9 31 256l212.1 218.6c7.1 7.3 18.6 7.3 25.7 0L481 255.9c43.5-53 41.4-132.3-7.3-182.1z"
-                              Fill = "{x:Null}"
-                              Stretch = "Uniform"
-                              Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
-                                                                            AncestorType=ButtonBase},
-                                             Path=Foreground}" />
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-    </Style>
-
     <Style x:Key = "PlayerDownloadButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
            TargetType = "ButtonBase" >
-            <Setter Property = "Foreground"
-                    Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
+        <Setter Property = "Foreground"
+                Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
 
-            <Setter Property = "ContentTemplate" >
-                <Setter.Value>
-                    <DataTemplate>
-                        <Path Width = "16"
-                              Height = "16"
-                              Margin = "0,0,0,0"
-                              Data = "M81.25,96.425l24.688-24.687a6.249,6.249,0,1,1,8.838,8.838L79.419,115.931a6.231,6.231,0,0,1-8.837,0L35.225,80.575a6.25,6.25,0,1,1,8.838-8.838L68.75,96.425V36.512a6.25,6.25,0,0,1,12.5,0Z"
-                              Fill = "{x:Null}"
-                              Stretch = "Uniform"
-                              Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+        <Setter Property = "ContentTemplate" >
+            <Setter.Value>
+                <DataTemplate>
+                    <Path Width = "16"
+                          Height = "16"
+                          Margin = "0,0,0,0"
+                          Data = "M81.25,96.425l24.688-24.687a6.249,6.249,0,1,1,8.838,8.838L79.419,115.931a6.231,6.231,0,0,1-8.837,0L35.225,80.575a6.25,6.25,0,1,1,8.838-8.838L68.75,96.425V36.512a6.25,6.25,0,0,1,12.5,0Z"
+                          Fill = "{x:Null}"
+                          Stretch = "Uniform"
+                          Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                                             AncestorType=ButtonBase},
                                              Path=Foreground}" />
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key = "PlayerMenuButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
            TargetType = "ButtonBase" >
-            <Setter Property = "Foreground"
-                    Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
+        <Setter Property = "Foreground"
+                Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
 
-            <Setter Property = "ContentTemplate" >
-                <Setter.Value>
-                    <DataTemplate>
-                        <Path Width = "16"
-                              Height = "16"
-                              Margin = "0,0,0,0"
-                              Data = "M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,10.5A1.5,1.5 0 0,0 10.5,12A1.5,1.5 0 0,0 12,13.5A1.5,1.5 0 0,0 13.5,12A1.5,1.5 0 0,0 12,10.5M6.5,10.5A1.5,1.5 0 0,0 5,12A1.5,1.5 0 0,0 6.5,13.5A1.5,1.5 0 0,0 8,12A1.5,1.5 0 0,0 6.5,10.5M17.5,10.5A1.5,1.5 0 0,0 16,12A1.5,1.5 0 0,0 17.5,13.5A1.5,1.5 0 0,0 19,12A1.5,1.5 0 0,0 17.5,10.5Z"
-                              Fill = "{x:Null}"
-                              Stretch = "Uniform"
-                              Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+        <Setter Property = "ContentTemplate" >
+            <Setter.Value>
+                <DataTemplate>
+                    <Path Width = "16"
+                          Height = "16"
+                          Margin = "0,0,0,0"
+                          Data = "M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,10.5A1.5,1.5 0 0,0 10.5,12A1.5,1.5 0 0,0 12,13.5A1.5,1.5 0 0,0 13.5,12A1.5,1.5 0 0,0 12,10.5M6.5,10.5A1.5,1.5 0 0,0 5,12A1.5,1.5 0 0,0 6.5,13.5A1.5,1.5 0 0,0 8,12A1.5,1.5 0 0,0 6.5,10.5M17.5,10.5A1.5,1.5 0 0,0 16,12A1.5,1.5 0 0,0 17.5,13.5A1.5,1.5 0 0,0 19,12A1.5,1.5 0 0,0 17.5,10.5Z"
+                          Fill = "{x:Null}"
+                          Stretch = "Uniform"
+                          Stroke = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                                             AncestorType=ButtonBase},
                                              Path=Foreground}" />
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key = "PlayerLyricsButtonStyle"
-           BasedOn = "{StaticResource PlayerSmallButtonStyle}"
+           BasedOn = "{StaticResource PressDownButtonStyle}"
            TargetType = "ButtonBase" >
-            <Setter Property = "Foreground"
-                    Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
+        <Setter Property = "Foreground"
+                Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
     </Style>
 
     <!--  循环模式面板弹出开关样式  -->

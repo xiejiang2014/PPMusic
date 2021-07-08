@@ -76,6 +76,30 @@
         </Style.Triggers>
     </Style>
 
+    <!--  按下会向右下偏移1个像素的按钮  -->
+    <Style x:Key = "PressDownButtonStyle"
+           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
+           TargetType = "ButtonBase" >
+
+        <Style.Triggers>
+            <Trigger Property = "IsPressed"
+                     Value = "True" >
+                <Setter Property = "RenderTransform" >
+                    <Setter.Value>
+                        <TranslateTransform X = "1"
+                            Y = "1" />
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+
+            <Trigger Property = "IsEnabled"
+                     Value = "False" >
+                <Setter Property = "Foreground"
+                        Value = "{DynamicResource ElementsDisabledForeground}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 
     <Style x:Key = "SecondaryMouseOverAccentButtonStyle"
            BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
