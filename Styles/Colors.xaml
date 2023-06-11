@@ -1,18 +1,19 @@
 ﻿<ResourceDictionary
-    xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml" >
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- 主要元素的默认前景色 -->
+    <!--  主要元素的默认前景色  -->
     <SolidColorBrush
-        x:Key = "PrimaryElementsDefaultForeground"
-        Color = "Black" />
+        x:Key="PrimaryElementsDefaultForeground"
+        Color="Black" />
 
-    <!-- 次要元素的默认前景色 -->
+    <!--  次要元素的默认前景色  -->
     <SolidColorBrush
-        x:Key = "SecondaryElementsDefaultForeground"
-        Color = "#838383" />
+        x:Key="SecondaryElementsDefaultForeground"
+        Color="#838383" />
 
-    <!-- 被禁用元素的前景色 -->
-    <SolidColorBrush x:Key = "ElementsDisabledForeground"
-                     Color = "{DynamicResource MahApps.Colors.Gray7}" />
+    <!--  被禁用元素的前景色  -->
+    <SolidColorBrush
+        x:Key="ElementsDisabledForeground"
+        Color="{DynamicResource MahApps.Colors.Gray7}" />
 </ResourceDictionary>

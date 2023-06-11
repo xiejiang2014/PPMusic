@@ -21,6 +21,7 @@
             <Grid.RenderTransform>
                 <TranslateTransform x:Name="MainContentTranslateTransform" />
             </Grid.RenderTransform>
+
             <!--  背景图片(专辑封面)  -->
             <mah:ClipBorder
                 Width="256"

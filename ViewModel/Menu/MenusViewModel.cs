@@ -12,11 +12,10 @@ namespace PPMusic.ViewModel.Menu
         private ICommand _loadedCommand;
         public  ICommand LoadedCommand => _loadedCommand ??= new DelegateCommand(Loaded);
 
-        public MenusViewModel(FakeDataCreator   fakeDataCreator
+        public MenusViewModel(FakeDataCreator fakeDataCreator
         )
         {
             MenuGroups = new ObservableRangeCollection<MenuGroupViewModel>(fakeDataCreator.CreateMenuGroups());
-
         }
 
 
@@ -24,8 +23,6 @@ namespace PPMusic.ViewModel.Menu
         {
             //默认导航到推荐页
             Commands.MainRegionNavigationCommand.Execute(MenuGroups.First().MenuItems.FirstOrDefault());
-
         }
-
     }
 }

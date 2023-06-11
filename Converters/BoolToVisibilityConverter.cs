@@ -35,7 +35,7 @@ namespace PPMusic.Converters
                 flag = !flag;
             }
 
-            return flag ? Visibility.Visible : (Visibility) (UseHidden ? 1 : 2);
+            return flag ? Visibility.Visible : (Visibility)(UseHidden ? 1 : 2);
         }
 
         public object ConvertBack(

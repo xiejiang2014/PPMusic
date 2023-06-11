@@ -1,132 +1,155 @@
 ﻿<ResourceDictionary
-    xmlns = "http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x = "http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mah = "http://metro.mahapps.com/winfx/xaml/controls" >
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <!--  透明背景的按钮样式  -->
-    <Style x:Key = "TransparentBackgroundButtonStyle"
-           TargetType = "{x:Type ButtonBase}" >
-        <Setter Property = "Background"
-                Value = "#01FFFFFF" />
-        <Setter Property = "BorderThickness"
-                Value = "0" />
-        <Setter Property = "Cursor"
-                Value = "Hand" />
-        <Setter Property = "FocusVisualStyle"
-                Value = "{DynamicResource MahApps.Styles.Button.FocusVisualStyle.Flat}" />
-        <Setter Property = "FontSize"
-                Value = "{DynamicResource MahApps.Font.Size.Button.Flat}" />
-        <Setter Property = "Foreground"
-                Value = "{DynamicResource PrimaryElementsDefaultForeground}" />
-        <Setter Property = "Padding"
-                Value = "10,5,10,5" />
-        <Setter Property = "SnapsToDevicePixels"
-                Value = "True" />
-        <Setter Property = "Template" >
+    <Style
+        x:Key="TransparentBackgroundButtonStyle"
+        TargetType="{x:Type ButtonBase}">
+        <Setter
+            Property="Background"
+            Value="#01FFFFFF" />
+        <Setter
+            Property="BorderThickness"
+            Value="0" />
+        <Setter
+            Property="Cursor"
+            Value="Hand" />
+        <Setter
+            Property="FocusVisualStyle"
+            Value="{DynamicResource MahApps.Styles.Button.FocusVisualStyle.Flat}" />
+        <Setter
+            Property="FontSize"
+            Value="{DynamicResource MahApps.Font.Size.Button.Flat}" />
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource PrimaryElementsDefaultForeground}" />
+        <Setter
+            Property="Padding"
+            Value="10,5,10,5" />
+        <Setter
+            Property="SnapsToDevicePixels"
+            Value="True" />
+        <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate
-                    TargetType = "{x:Type ButtonBase}" >
-                    <mah:ClipBorder x:Name = "Border"
-                                    Margin = "0"
-                                    Background = "{TemplateBinding Background}"
-                                    BorderBrush = "{TemplateBinding BorderBrush}"
-                                    BorderThickness = "{TemplateBinding BorderThickness}"
-                                    CornerRadius = "{TemplateBinding mah:ControlsHelper.CornerRadius}"
-                                    SnapsToDevicePixels = "{TemplateBinding SnapsToDevicePixels}" >
+                <ControlTemplate TargetType="{x:Type ButtonBase}">
+                    <mah:ClipBorder
+                        x:Name="Border"
+                        Margin="0"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding mah:ControlsHelper.CornerRadius}"
+                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                         <mah:ContentControlEx
-                            x:Name = "PART_ContentPresenter"
-                            Padding = "{TemplateBinding Padding}"
-                            HorizontalContentAlignment = "{TemplateBinding HorizontalContentAlignment}"
-                            VerticalContentAlignment = "{TemplateBinding VerticalContentAlignment}"
-                            Content = "{TemplateBinding Content}"
-                            ContentCharacterCasing = "{Binding RelativeSource={RelativeSource TemplatedParent},
+                            x:Name="PART_ContentPresenter"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}"
+                            ContentCharacterCasing="{Binding RelativeSource={RelativeSource TemplatedParent},
                                                              Path=(mah:ControlsHelper.ContentCharacterCasing)}"
-                            ContentStringFormat = "{TemplateBinding ContentStringFormat}"
-                            ContentTemplate = "{TemplateBinding ContentTemplate}"
-                            ContentTemplateSelector = "{TemplateBinding ContentTemplateSelector}"
-                            RecognizesAccessKey = "{TemplateBinding mah:ControlsHelper.RecognizesAccessKey}"
-                            SnapsToDevicePixels = "{TemplateBinding SnapsToDevicePixels}" />
+                            ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                            RecognizesAccessKey="{TemplateBinding mah:ControlsHelper.RecognizesAccessKey}"
+                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </mah:ClipBorder>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property = "IsEnabled"
-                     Value = "False" >
-                <Setter Property = "Foreground"
-                        Value = "{DynamicResource ElementsDisabledForeground}" />
+            <Trigger
+                Property="IsEnabled"
+                Value="False">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource ElementsDisabledForeground}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
 
     <!--  鼠标悬停时 前景色会变为 Accent 的样式  -->
-    <Style x:Key = "MouseOverAccentButtonStyle"
-           BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
-           TargetType = "{x:Type ButtonBase}" >
+    <Style
+        x:Key="MouseOverAccentButtonStyle"
+        BasedOn="{StaticResource TransparentBackgroundButtonStyle}"
+        TargetType="{x:Type ButtonBase}">
 
-        <Setter Property = "Padding"
-                Value = "0" />
+        <Setter
+            Property="Padding"
+            Value="0" />
         <Style.Triggers>
-            <Trigger Property = "IsMouseOver"
-                     Value = "True" >
-                <Setter Property = "Foreground"
-                        Value = "{DynamicResource MahApps.Brushes.Accent}" />
+            <Trigger
+                Property="IsMouseOver"
+                Value="True">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource MahApps.Brushes.Accent}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <!--  按下会向右下偏移1个像素的按钮  -->
-    <Style x:Key = "PressDownButtonStyle"
-           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
-           TargetType = "ButtonBase" >
+    <Style
+        x:Key="PressDownButtonStyle"
+        BasedOn="{StaticResource MouseOverAccentButtonStyle}"
+        TargetType="ButtonBase">
 
         <Style.Triggers>
-            <Trigger Property = "IsPressed"
-                     Value = "True" >
-                <Setter Property = "RenderTransform" >
+            <Trigger
+                Property="IsPressed"
+                Value="True">
+                <Setter Property="RenderTransform">
                     <Setter.Value>
-                        <TranslateTransform X = "1"
-                            Y = "1" />
+                        <TranslateTransform X="1" Y="1" />
                     </Setter.Value>
                 </Setter>
             </Trigger>
 
-            <Trigger Property = "IsEnabled"
-                     Value = "False" >
-                <Setter Property = "Foreground"
-                        Value = "{DynamicResource ElementsDisabledForeground}" />
+            <Trigger
+                Property="IsEnabled"
+                Value="False">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource ElementsDisabledForeground}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
 
-    <Style x:Key = "SecondaryMouseOverAccentButtonStyle"
-           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
-           TargetType = "ButtonBase" >
-            <Setter Property = "Foreground"
-                    Value = "{DynamicResource SecondaryElementsDefaultForeground}" />
+    <Style
+        x:Key="SecondaryMouseOverAccentButtonStyle"
+        BasedOn="{StaticResource MouseOverAccentButtonStyle}"
+        TargetType="ButtonBase">
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource SecondaryElementsDefaultForeground}" />
     </Style>
 
 
     <!--  专辑磁贴中播放按钮的样式  -->
-    <Style x:Key = "TilePlayButtonStyle"
-           BasedOn = "{StaticResource MouseOverAccentButtonStyle}"
-           TargetType = "ButtonBase" >
+    <Style
+        x:Key="TilePlayButtonStyle"
+        BasedOn="{StaticResource MouseOverAccentButtonStyle}"
+        TargetType="ButtonBase">
         <Style.Setters>
-            <Setter Property = "Foreground"
-                    Value = "White" />
-            <Setter Property = "ContentTemplate" >
+            <Setter
+                Property="Foreground"
+                Value="White" />
+            <Setter Property="ContentTemplate">
                 <Setter.Value>
                     <DataTemplate>
-                        <Path Width = "48"
-                              Height = "48"
-                              Margin = "0,0,0,0"
-                              Data = "M768 1408c424 0 768 -344 768 -768s-344 -768 -768 -768s-768 344 -768 768s344 768 768 768zM1152 585c20 11 32 32 32 55s-12 44 -32 55l-544 320c-19 12 -44 12 -64 1c-20 -12 -32 -33 -32 -56v-640c0 -23 12 -44 32 -56c10 -5 21 -8 32 -8s22 3 32 9z"
-                              Fill = "{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+                        <Path
+                            Width="48"
+                            Height="48"
+                            Margin="0,0,0,0"
+                            Data="M768 1408c424 0 768 -344 768 -768s-344 -768 -768 -768s-768 344 -768 768s344 768 768 768zM1152 585c20 11 32 32 32 55s-12 44 -32 55l-544 320c-19 12 -44 12 -64 1c-20 -12 -32 -33 -32 -56v-640c0 -23 12 -44 32 -56c10 -5 21 -8 32 -8s22 3 32 9z"
+                            Fill="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
                                                                           AncestorType=ButtonBase},
                                            Path=Foreground}"
-                              Stretch = "Uniform" />
+                            Stretch="Uniform" />
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
@@ -137,28 +160,36 @@
 
     <!--  覆写 mah 窗口的 最大化/最小化 按钮的默认样式  -->
     <Style
-        x:Key = "MahApps.Styles.Button.MetroWindow.Light"
-        BasedOn = "{StaticResource TransparentBackgroundButtonStyle}"
-        TargetType = "{x:Type Button}" >
+        x:Key="MahApps.Styles.Button.MetroWindow.Light"
+        BasedOn="{StaticResource TransparentBackgroundButtonStyle}"
+        TargetType="{x:Type Button}">
 
 
-        <Setter Property = "FocusVisualStyle"
-                Value = "{x:Null}" />
-        <Setter Property = "Focusable"
-                Value = "False" />
-        <Setter Property = "IsTabStop"
-                Value = "False" />
-        <Setter Property = "MaxHeight"
-                Value = "34" />
-        <Setter Property = "Padding"
-                Value = "0" />
-        <Setter Property = "Width"
-                Value = "34" />
+        <Setter
+            Property="FocusVisualStyle"
+            Value="{x:Null}" />
+        <Setter
+            Property="Focusable"
+            Value="False" />
+        <Setter
+            Property="IsTabStop"
+            Value="False" />
+        <Setter
+            Property="MaxHeight"
+            Value="34" />
+        <Setter
+            Property="Padding"
+            Value="0" />
+        <Setter
+            Property="Width"
+            Value="34" />
         <Style.Triggers>
-            <Trigger Property = "IsEnabled"
-                     Value = "False" >
-                <Setter Property = "Foreground"
-                        Value = "{DynamicResource MahApps.Brushes.IdealForegroundDisabled}" />
+            <Trigger
+                Property="IsEnabled"
+                Value="False">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource MahApps.Brushes.IdealForegroundDisabled}" />
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -166,7 +197,7 @@
 
     <!--  覆写 mah 窗口的 关闭 按钮的默认样式  -->
     <Style
-        x:Key = "MahApps.Styles.Button.MetroWindow.Close.Light.Win10"
-        BasedOn = "{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
-        TargetType = "{x:Type Button}" />
+        x:Key="MahApps.Styles.Button.MetroWindow.Close.Light.Win10"
+        BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
+        TargetType="{x:Type Button}" />
 </ResourceDictionary>

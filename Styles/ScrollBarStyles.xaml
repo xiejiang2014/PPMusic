@@ -5,15 +5,27 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <converters:MultiplicationConverter x:Key="HalfConverter" Multiplier="0.5" />
+    <converters:MultiplicationConverter
+        x:Key="HalfConverter"
+        Multiplier="0.5" />
 
 
     <!--  覆写 mah 的默认垂直滚动条滑动柄样式 将其改为圆角  -->
-    <Style x:Key="MahApps.Styles.Thumb.ScrollBar" TargetType="{x:Type Thumb}">
-        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Thumb}" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="IsTabStop" Value="False" />
-        <Setter Property="OverridesDefaultStyle" Value="True" />
+    <Style
+        x:Key="MahApps.Styles.Thumb.ScrollBar"
+        TargetType="{x:Type Thumb}">
+        <Setter
+            Property="Background"
+            Value="{DynamicResource MahApps.Brushes.Thumb}" />
+        <Setter
+            Property="BorderThickness"
+            Value="1" />
+        <Setter
+            Property="IsTabStop"
+            Value="False" />
+        <Setter
+            Property="OverridesDefaultStyle"
+            Value="True" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
@@ -21,38 +33,59 @@
                         <Rectangle
                             x:Name="Background"
                             Fill="{TemplateBinding Background}"
-                            RadiusX="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource HalfConverter}}"
-                            RadiusY="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource HalfConverter}}"
+                            RadiusX="{Binding RelativeSource={RelativeSource Mode=Self},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HalfConverter}}"
+                            RadiusY="{Binding RelativeSource={RelativeSource Mode=Self},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HalfConverter}}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="{TemplateBinding BorderThickness}" />
                         <Rectangle
                             x:Name="MouseOverRectangle"
                             Fill="{DynamicResource MahApps.Brushes.ThemeForeground}"
                             Opacity="0"
-                            RadiusX="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource HalfConverter}}"
-                            RadiusY="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource HalfConverter}}"
+                            RadiusX="{Binding RelativeSource={RelativeSource Mode=Self},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HalfConverter}}"
+                            RadiusY="{Binding RelativeSource={RelativeSource Mode=Self},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HalfConverter}}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="{TemplateBinding BorderThickness}" />
                         <Rectangle
                             x:Name="PressedRectangle"
                             Fill="{DynamicResource MahApps.Brushes.ThemeForeground}"
                             Opacity="0"
-                            RadiusX="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource HalfConverter}}"
-                            RadiusY="{Binding RelativeSource={RelativeSource Mode=Self}, Path=ActualWidth, Converter={StaticResource HalfConverter}}"
+                            RadiusX="{Binding RelativeSource={RelativeSource Mode=Self},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HalfConverter}}"
+                            RadiusY="{Binding RelativeSource={RelativeSource Mode=Self},
+                                              Path=ActualWidth,
+                                              Converter={StaticResource HalfConverter}}"
                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                             StrokeThickness="{TemplateBinding BorderThickness}" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal" />
-                                <VisualState x:Name="MouseOver" Storyboard="{StaticResource MahApps.Storyboard.ScrollBarThumbMouseOver}" />
-                                <VisualState x:Name="Pressed" Storyboard="{StaticResource MahApps.Storyboard.ScrollBarThumbPressed}" />
+                                <VisualState
+                                    x:Name="MouseOver"
+                                    Storyboard="{StaticResource MahApps.Storyboard.ScrollBarThumbMouseOver}" />
+                                <VisualState
+                                    x:Name="Pressed"
+                                    Storyboard="{StaticResource MahApps.Storyboard.ScrollBarThumbPressed}" />
                                 <VisualState x:Name="Disabled" />
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter TargetName="ThumbVisual" Property="Opacity" Value="0" />
+                        <Trigger
+                            Property="IsEnabled"
+                            Value="False">
+                            <Setter
+                                TargetName="ThumbVisual"
+                                Property="Opacity"
+                                Value="0" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -62,8 +95,12 @@
 
 
     <!--  覆写 mah 的默认垂直滚动条模版 删除上下的箭头按钮  -->
-    <ControlTemplate x:Key="MahApps.Templates.ScrollBar.Vertical" TargetType="{x:Type ScrollBar}">
-        <Grid x:Name="VerticalRoot" Width="{TemplateBinding Width}">
+    <ControlTemplate
+        x:Key="MahApps.Templates.ScrollBar.Vertical"
+        TargetType="{x:Type ScrollBar}">
+        <Grid
+            x:Name="VerticalRoot"
+            Width="{TemplateBinding Width}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="0.00001*" />
@@ -101,8 +138,13 @@
         </Grid>
 
         <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter TargetName="VerticalRoot" Property="Opacity" Value="0.5" />
+            <Trigger
+                Property="IsEnabled"
+                Value="False">
+                <Setter
+                    TargetName="VerticalRoot"
+                    Property="Opacity"
+                    Value="0.5" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>

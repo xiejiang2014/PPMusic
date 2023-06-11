@@ -125,7 +125,7 @@ namespace PPMusic
             yield return new Album()
                          {
                              Title         = "声入人心",
-                             CoverImageUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Images\\Covers\\256\\Cover (1).png"),
+                             CoverImageUrl = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources\\Images\\Covers\\256\\Cover (30).png"),
                              PlayCountText = "505.5万",
                              Description   = "《声入人心》是由湖南卫视制作的原创新形态声乐演唱节目，共12期，第一季由廖昌永、刘宪华、尚雯婕三位音乐人作为出品人；第二季由廖昌永、张惠妹、尚雯婕三位音乐人作为出品人。节目的播出减少了大家对高雅音乐的误解，让听众发现古典音乐作品的魅力，使听众开始走进剧场更趣味地了解欣赏音乐剧。该歌单收录了声入人心中的一些精彩现场，快来收藏歌单一起聆听经典。",
                              Songs         = new ObservableCollection<Song>(GetRandomSongs())

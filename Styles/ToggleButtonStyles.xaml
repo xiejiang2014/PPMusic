@@ -21,14 +21,30 @@
     <Style
         x:Key="TransparentToggleButtonStyle"
         TargetType="{x:Type ToggleButton}">
-        <Setter Property="Cursor" Value="Hand" />
-        <Setter Property="Background" Value="#01FFFFFF" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="0" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter
+            Property="Cursor"
+            Value="Hand" />
+        <Setter
+            Property="Background"
+            Value="#01FFFFFF" />
+        <Setter
+            Property="BorderThickness"
+            Value="0" />
+        <Setter
+            Property="Padding"
+            Value="0" />
+        <Setter
+            Property="FocusVisualStyle"
+            Value="{StaticResource FocusVisual}" />
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter
+            Property="HorizontalContentAlignment"
+            Value="Center" />
+        <Setter
+            Property="VerticalContentAlignment"
+            Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
@@ -61,9 +77,13 @@
         BasedOn="{StaticResource TransparentToggleButtonStyle}"
         TargetType="ToggleButton">
 
-        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray2}" />
+        <Setter
+            Property="Foreground"
+            Value="{DynamicResource MahApps.Brushes.Gray2}" />
 
-        <Setter Property="ToolTip" Value="静音" />
+        <Setter
+            Property="ToolTip"
+            Value="静音" />
 
         <Setter Property="ContentTemplate">
             <Setter.Value>
@@ -82,12 +102,18 @@
         </Setter>
 
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Accent}" />
+            <Trigger
+                Property="IsMouseOver"
+                Value="True">
+                <Setter
+                    Property="Foreground"
+                    Value="{DynamicResource MahApps.Brushes.Accent}" />
             </Trigger>
 
             <!--  按下时,像右下偏移1个像素  -->
-            <Trigger Property="IsPressed" Value="True">
+            <Trigger
+                Property="IsPressed"
+                Value="True">
                 <Setter Property="RenderTransform">
                     <Setter.Value>
                         <TranslateTransform X="1" Y="1" />
@@ -96,7 +122,9 @@
             </Trigger>
 
             <!--  勾选时,变换图标为画×的喇叭  -->
-            <Trigger Property="IsChecked" Value="True">
+            <Trigger
+                Property="IsChecked"
+                Value="True">
                 <Setter Property="ContentTemplate">
                     <Setter.Value>
                         <DataTemplate>

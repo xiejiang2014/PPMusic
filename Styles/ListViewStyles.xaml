@@ -35,9 +35,17 @@
                         </Grid>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="GridView.ColumnCollection" Value="{x:Null}">
-                            <Setter TargetName="PART_ContentPresenter" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="PART_RowPresenter" Property="Visibility" Value="Collapsed" />
+                        <Trigger
+                            Property="GridView.ColumnCollection"
+                            Value="{x:Null}">
+                            <Setter
+                                TargetName="PART_ContentPresenter"
+                                Property="Visibility"
+                                Value="Visible" />
+                            <Setter
+                                TargetName="PART_RowPresenter"
+                                Property="Visibility"
+                                Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -50,9 +58,13 @@
         x:Key="MenuListViewStyle"
         BasedOn="{StaticResource MahApps.Styles.ListView}"
         TargetType="{x:Type ListView}">
-        <Setter Property="ItemContainerStyle" Value="{StaticResource MenuListViewItemStyle}" />
+        <Setter
+            Property="ItemContainerStyle"
+            Value="{StaticResource MenuListViewItemStyle}" />
 
-        <Setter Property="Background" Value="Transparent" />
+        <Setter
+            Property="Background"
+            Value="Transparent" />
 
         <Setter Property="Template">
             <Setter.Value>
